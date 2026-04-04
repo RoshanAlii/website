@@ -1,0 +1,2530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roshan Ali | Senior AI QA Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ===== RESET & VARIABLES ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange:       #f97316;
+      --orange-light: #fb923c;
+      --orange-dark:  #ea580c;
+      --orange-glow:  rgba(249,115,22,0.35);
+      --bg-primary:   #080d18;
+      --bg-secondary: #0c1322;
+      --bg-card:      rgba(12,19,34,0.85);
+      --text-primary: #f1f5f9;
+      --text-muted:   #64748b;
+      --text-secondary: #94a3b8;
+      --border:       rgba(249,115,22,0.18);
+      --border-subtle: rgba(255,255,255,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    /* ===== STARFIELD CANVAS ===== */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ===== FLOATING ORBS ===== */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fb923c, #c2410c 60%, #431407);
+      box-shadow: 0 0 50px rgba(249,115,22,0.55), 0 0 100px rgba(249,115,22,0.2);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb { animation: orbFloat ease-in-out infinite; }
+    @keyframes orbFloat {
+      0%,100% { transform: translateY(0) translateX(0); }
+      33%      { transform: translateY(-18px) translateX(8px); }
+      66%      { transform: translateY(-8px) translateX(-6px); }
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: flex;
+      gap: 4px;
+      background: rgba(8,13,24,0.75);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 7px 12px;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+    }
+    nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 30px;
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: all 0.25s ease;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    nav a:hover, nav a.active {
+      color: var(--orange);
+      border-color: var(--orange);
+      background: rgba(249,115,22,0.1);
+      box-shadow: 0 0 14px rgba(249,115,22,0.25);
+    }
+
+    /* ===== LAYOUT ===== */
+    main { position: relative; z-index: 1; }
+
+    section {
+      min-height: 100vh;
+      padding: 110px 6% 90px;
+      position: relative;
+    }
+
+    /* ===== SECTION HEADER ===== */
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-tag {
+      display: inline-block;
+      padding: 5px 16px;
+      background: rgba(249,115,22,0.1);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--orange);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+      line-height: 1.15;
+    }
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+    .glow-divider {
+      width: 56px;
+      height: 3px;
+      background: linear-gradient(to right, var(--orange), transparent);
+      border-radius: 2px;
+      margin: 18px auto 0;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 30px;
+      background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(249,115,22,0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(249,115,22,0.5);
+    }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 30px;
+      background: rgba(255,255,255,0.04);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .btn-outline:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+      box-shadow: 0 0 20px rgba(249,115,22,0.15);
+    }
+
+    /* ===== CARDS BASE ===== */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .card:hover {
+      border-color: rgba(249,115,22,0.4);
+      box-shadow: 0 0 35px rgba(249,115,22,0.12);
+    }
+
+    /* ===== SKILL TAG ===== */
+    .tag {
+      display: inline-block;
+      padding: 4px 11px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .tag:hover { border-color: var(--orange); color: var(--orange-light); }
+    .tag-orange {
+      background: rgba(249,115,22,0.12);
+      border-color: rgba(249,115,22,0.35);
+      color: var(--orange-light);
+    }
+
+    /* ===================================
+       SECTION 1 — HOME / HERO
+       =================================== */
+    #home {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 0;
+      padding-bottom: 0;
+      min-height: 100vh;
+      background: radial-gradient(ellipse 80% 60% at 65% 50%, rgba(30,15,5,0.9) 0%, var(--bg-primary) 70%);
+    }
+
+    /* Layer 1 — deep grid */
+    #ai-grid {
+      position: absolute;
+      inset: 0; z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Layer 2 — neural network canvas */
+    #ai-canvas {
+      position: absolute;
+      inset: 0; z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Layer 3 — floating data tokens */
+    .data-token {
+      position: absolute;
+      z-index: 2;
+      pointer-events: none;
+      display: flex; align-items: center; gap: 7px;
+      padding: 7px 14px;
+      background: rgba(8,13,24,0.7);
+      border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 30px;
+      backdrop-filter: blur(8px);
+      color: var(--orange-light);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      animation: tokenFloat ease-in-out infinite;
+    }
+    .data-token i { color: var(--orange); font-size: 12px; }
+    @keyframes tokenFloat {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    /* Central AI glow orb (depth anchor) */
+    .ai-core {
+      position: absolute;
+      right: 18%;
+      top: 50%;
+      transform: translate(50%, -50%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .ai-core-glow {
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(234,88,12,0.18) 0%, rgba(234,88,12,0.06) 40%, transparent 70%);
+      animation: coreBreath 4s ease-in-out infinite;
+      filter: blur(2px);
+    }
+    @keyframes coreBreath {
+      0%,100% { transform: scale(1);   opacity: 0.7; }
+      50%      { transform: scale(1.12); opacity: 1; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+      padding: 0 6%;
+    }
+    .hero-greeting {
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 9vw, 6.5rem);
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 0.95;
+      margin-bottom: 20px;
+      text-shadow: 0 0 60px rgba(249,115,22,0.35);
+    }
+    .hero-title {
+      font-size: clamp(0.82rem, 1.6vw, 1rem);
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-bottom: 42px;
+      letter-spacing: 0.04em;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+    .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+
+    .social-links { display: flex; gap: 12px; }
+    .social-links a {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border-subtle);
+      border-radius: 50%;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 15px;
+      transition: all 0.25s;
+    }
+    .social-links a:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+      box-shadow: 0 0 14px rgba(249,115,22,0.3);
+    }
+
+    /* Avatar */
+    .hero-avatar {
+      position: absolute;
+      right: 7%;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+    .hex-container {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      animation: hexPulse 3s ease-in-out infinite;
+    }
+    @keyframes hexPulse {
+      0%,100% { filter: drop-shadow(0 0 20px rgba(249,115,22,0.4)); }
+      50%      { filter: drop-shadow(0 0 40px rgba(249,115,22,0.7)); }
+    }
+    .hex-container svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .avatar-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 162px; height: 162px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #1a2540, #0c1322);
+      border: 3px solid var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 78px;
+      box-shadow: 0 0 40px rgba(249,115,22,0.4), inset 0 0 20px rgba(249,115,22,0.05);
+    }
+
+    /* Tool Carousel */
+    .tool-carousel-outer {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      width: min(640px, 88vw);
+    }
+    .tool-carousel {
+      background: rgba(8,13,24,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 14px 36px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .carousel-arrow {
+      background: none; border: none;
+      color: var(--text-muted);
+      cursor: pointer; font-size: 16px;
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .carousel-arrow:hover { color: var(--orange); }
+    .carousel-track {
+      display: flex; gap: 20px;
+      overflow: hidden; flex: 1;
+      justify-content: center;
+    }
+    .tool-chip {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 5px;
+      flex-shrink: 0;
+    }
+    .tool-chip-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .tool-chip-label {
+      font-size: 9.5px;
+      color: var(--text-muted);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 22px;
+      left: 6%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    .scroll-mouse {
+      width: 20px; height: 32px;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      display: flex; justify-content: center;
+      padding-top: 5px;
+    }
+    .scroll-wheel {
+      width: 3px; height: 7px;
+      background: var(--orange);
+      border-radius: 2px;
+      animation: scrollAnim 1.8s infinite;
+    }
+    @keyframes scrollAnim {
+      0%   { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(9px); opacity: 0; }
+    }
+
+    /* ===================================
+       SECTION 2 — ABOUT
+       =================================== */
+    #about { background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 56px;
+      align-items: start;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .about-stats { display: flex; flex-direction: column; gap: 16px; }
+    .stat-card {
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.6rem;
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-lbl {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .about-narrative h3 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+    .about-narrative p {
+      color: var(--text-secondary);
+      line-height: 1.85;
+      margin-bottom: 18px;
+      font-size: 0.97rem;
+    }
+    .about-narrative p strong { color: var(--orange-light); font-weight: 600; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+
+    /* ===================================
+       SECTION 3 — SKILLS
+       =================================== */
+    #skills { background: var(--bg-primary); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+      gap: 22px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .skill-card { padding: 30px; }
+    .skill-card:hover { transform: translateY(-4px); }
+    .skill-card-icon {
+      width: 46px; height: 46px;
+      background: rgba(249,115,22,0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+    .skill-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+    }
+    .tag-wrap { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    /* ===================================
+       SECTION 4 — EXPERIENCE
+       =================================== */
+    #experience { background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
+
+    .timeline {
+      max-width: 880px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 28px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--orange) 0%, rgba(249,115,22,0.1) 90%, transparent 100%);
+    }
+    .t-item {
+      padding-left: 76px;
+      position: relative;
+      margin-bottom: 44px;
+    }
+    .t-item:last-child { margin-bottom: 0; }
+    .t-dot {
+      position: absolute;
+      left: 19px; top: 12px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 16px rgba(249,115,22,0.7);
+      border: 3px solid var(--bg-primary);
+    }
+    .t-card { padding: 30px; }
+    .t-card:hover { transform: translateX(4px); }
+    .t-date {
+      display: inline-block;
+      padding: 3px 11px;
+      background: rgba(249,115,22,0.12);
+      border-radius: 20px;
+      color: var(--orange);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+    .t-role { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+    .t-company { color: var(--orange-light); font-size: 0.92rem; font-weight: 500; margin-bottom: 14px; }
+    .t-desc { color: var(--text-secondary); line-height: 1.75; font-size: 0.93rem; margin-bottom: 16px; }
+    .t-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    /* ===================================
+       SECTION 5 — PROJECTS
+       =================================== */
+    #projects { background: var(--bg-primary); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 26px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .proj-card {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+    .proj-card:hover { transform: translateY(-5px); }
+    .proj-type {
+      display: inline-block;
+      padding: 3px 11px;
+      background: rgba(249,115,22,0.1);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--orange);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+    .proj-title { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+    .proj-context { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.65; margin-bottom: 18px; }
+    .proj-section-lbl {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 5px;
+    }
+    .proj-section-text { font-size: 0.87rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 16px; }
+    .proj-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--orange);
+      font-size: 12.5px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      transition: gap 0.2s;
+    }
+    .proj-link:hover { gap: 10px; }
+
+    /* ===================================
+       SECTION 6 — CASE STUDIES
+       =================================== */
+    #case-studies { background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 26px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .case-card { padding: 32px; }
+    .case-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      font-weight: 900;
+      color: rgba(249,115,22,0.18);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .case-title { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; }
+    .case-step { display: flex; gap: 12px; margin-bottom: 14px; }
+    .case-step-dot {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: rgba(249,115,22,0.12);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: var(--orange);
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .case-step-body h5 {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange-light);
+      margin-bottom: 4px;
+    }
+    .case-step-body p { font-size: 0.87rem; color: var(--text-secondary); line-height: 1.55; }
+    .case-impact {
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-top: 16px;
+    }
+    .case-impact p { font-size: 0.87rem; color: var(--orange-light); font-weight: 500; line-height: 1.5; }
+
+    /* ===================================
+       SECTION 7 — METRICS
+       =================================== */
+    #metrics {
+      min-height: unset;
+      padding: 90px 6%;
+      background: var(--bg-secondary);
+    }
+    .metrics-rail {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      max-width: 1080px;
+      margin: 0 auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+    .metric-cell {
+      padding: 48px 24px;
+      text-align: center;
+      border-right: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.3s;
+    }
+    .metric-cell:last-child { border-right: none; }
+    .metric-cell:hover { background: rgba(249,115,22,0.06); }
+    .metric-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .metric-lbl {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+    }
+
+    /* ===================================
+       SECTION 8 — LEADERSHIP
+       =================================== */
+    #leadership { background: var(--bg-primary); }
+
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 22px;
+      max-width: 1080px;
+      margin: 0 auto 52px;
+    }
+    .lead-card {
+      padding: 32px 26px;
+      text-align: center;
+    }
+    .lead-card:hover { transform: translateY(-4px); }
+    .lead-icon { font-size: 2.2rem; color: var(--orange); margin-bottom: 16px; }
+    .lead-card h4 { font-size: 0.97rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+    .lead-card p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; }
+
+    /* Credentials */
+    .cred-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      max-width: 1080px;
+      margin: 0 auto 60px;
+    }
+    .cred-badge {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      transition: all 0.25s;
+    }
+    .cred-badge:hover { border-color: var(--border); }
+    .cred-badge i { color: var(--orange); font-size: 17px; }
+    .cred-badge span { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+
+    /* Testimonials */
+    .testimonial-section { max-width: 1080px; margin: 0 auto; }
+    .testimonial-section > h3 {
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      letter-spacing: 0.02em;
+    }
+    .testimonial-slider { max-width: 760px; margin: 0 auto; position: relative; }
+    .testimonial-slide { display: none; }
+    .testimonial-slide.active { display: block; }
+    .testimonial-card { padding: 44px; text-align: center; }
+    .t-stars { color: var(--orange); font-size: 14px; margin-bottom: 20px; letter-spacing: 3px; }
+    .t-quote {
+      font-size: 1.02rem;
+      color: var(--text-primary);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      font-style: italic;
+      position: relative;
+    }
+    .t-quote::before, .t-quote::after {
+      content: '"';
+      color: var(--orange);
+      font-size: 1.6em;
+      font-style: normal;
+      line-height: 0;
+      vertical-align: -0.3em;
+    }
+    .t-quote::before { margin-right: 2px; }
+    .t-quote::after  { margin-left: 2px; }
+    .t-name  { font-weight: 700; color: var(--orange-light); font-size: 0.95rem; }
+    .t-role  { font-size: 0.83rem; color: var(--text-muted); margin-top: 3px; }
+    .slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 22px; }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--border-subtle);
+      border: none; cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dot.active { background: var(--orange); width: 22px; border-radius: 4px; }
+
+    /* ===== FOOTER / CONTACT ===== */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-subtle);
+      text-align: center;
+      padding: 80px 6% 50px;
+    }
+    footer .section-tag { margin-bottom: 10px; }
+    footer h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    footer p.sub { color: var(--text-secondary); margin-bottom: 32px; font-size: 0.97rem; }
+    footer a.email-link {
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      color: var(--orange);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    footer a.email-link:hover { text-shadow: 0 0 24px rgba(249,115,22,0.5); }
+    footer .social-links { justify-content: center; margin-top: 28px; }
+    footer .copyright {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 44px;
+    }
+
+    /* ===== METRICS BOARD ===== */
+    #metrics {
+      min-height: unset;
+      padding: 90px 6%;
+      background: var(--bg-secondary);
+    }
+
+    /* Tab strip */
+    .mb-tabs {
+      display: flex; gap: 8px; justify-content: center;
+      flex-wrap: wrap; margin-bottom: 40px;
+    }
+    .mb-tab {
+      padding: 9px 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 30px;
+      color: var(--text-secondary);
+      font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: all 0.25s;
+    }
+    .mb-tab:hover { border-color: var(--border); color: var(--text-primary); }
+    .mb-tab.active {
+      background: rgba(249,115,22,0.12);
+      border-color: var(--orange);
+      color: var(--orange);
+      box-shadow: 0 0 16px rgba(249,115,22,0.2);
+    }
+
+    /* Panel show/hide */
+    .mb-panel { display: none; }
+    .mb-panel.active { display: block; }
+
+    /* ── Overview panel ── */
+    .mb-overview {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 1080px; margin: 0 auto 24px;
+    }
+    .mb-num-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 28px 20px 24px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+    .mb-num-card:hover {
+      border-color: rgba(249,115,22,0.45);
+      box-shadow: 0 0 28px rgba(249,115,22,0.15);
+      transform: translateY(-3px);
+    }
+    .mb-num-card .card-icon {
+      font-size: 1.4rem; color: var(--orange);
+      margin-bottom: 10px; display: block;
+    }
+    .mb-num-card .card-val {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900; color: var(--orange);
+      line-height: 1; margin-bottom: 6px;
+    }
+    .mb-num-card .card-lbl {
+      font-size: 11px; color: var(--text-secondary);
+      font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.08em; line-height: 1.4;
+    }
+    .mb-num-card .card-tip {
+      position: absolute;
+      bottom: calc(100% + 10px); left: 50%;
+      transform: translateX(-50%);
+      background: #1e2d4a;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px; color: var(--text-primary);
+      line-height: 1.55; white-space: nowrap;
+      pointer-events: none;
+      opacity: 0; transition: opacity 0.2s;
+      z-index: 10;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .mb-num-card .card-tip::after {
+      content: '';
+      position: absolute; top: 100%; left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: #1e2d4a;
+    }
+    .mb-num-card:hover .card-tip { opacity: 1; }
+
+    /* Ring gauges row */
+    .mb-rings {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 1080px; margin: 0 auto 24px;
+    }
+    .mb-ring-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 28px 16px 22px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+    .mb-ring-card:hover {
+      border-color: rgba(249,115,22,0.45);
+      box-shadow: 0 0 28px rgba(249,115,22,0.12);
+      transform: translateY(-3px);
+    }
+    .ring-svg { width: 110px; height: 110px; margin: 0 auto 14px; display: block; }
+    .ring-track { fill: none; stroke: rgba(249,115,22,0.1); stroke-width: 8; }
+    .ring-fill {
+      fill: none;
+      stroke: url(#ringGrad);
+      stroke-width: 8;
+      stroke-linecap: round;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+      stroke-dasharray: 0 339;
+      transition: stroke-dasharray 1.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .ring-fill.special { stroke: #22c55e; }
+    .ring-center-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 900;
+      fill: var(--text-primary);
+    }
+    .ring-center-sub {
+      font-size: 0.58rem; fill: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .mb-ring-card .ring-lbl {
+      font-size: 11.5px; color: var(--text-secondary);
+      font-weight: 500; line-height: 1.4;
+    }
+
+    /* Achievement strip */
+    .mb-achieve {
+      max-width: 1080px; margin: 0 auto;
+      background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(249,115,22,0.06));
+      border: 1px solid rgba(34,197,94,0.25);
+      border-radius: 16px;
+      padding: 18px 28px;
+      display: flex; align-items: center; gap: 16px;
+      flex-wrap: wrap;
+    }
+    .mb-achieve-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 30px;
+      padding: 6px 16px;
+      flex-shrink: 0;
+    }
+    .mb-achieve-badge i { color: #22c55e; font-size: 14px; }
+    .mb-achieve-badge span { color: #22c55e; font-weight: 700; font-size: 13px; }
+    .mb-achieve p { color: var(--text-secondary); font-size: 13.5px; line-height: 1.5; flex: 1; }
+
+    /* ── Delivery panel ── */
+    .mb-delivery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 1080px; margin: 0 auto;
+    }
+    .mb-bar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 30px 28px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .mb-bar-card:hover { border-color: rgba(249,115,22,0.35); box-shadow: 0 0 24px rgba(249,115,22,0.1); }
+    .mb-bar-header { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 16px; }
+    .mb-bar-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem; font-weight: 900;
+      color: var(--orange); line-height: 1;
+    }
+    .mb-bar-lbl { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; padding-bottom: 6px; line-height: 1.35; }
+    .mb-bar-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px; }
+    .mb-bar-track {
+      height: 6px; background: rgba(255,255,255,0.06);
+      border-radius: 3px; overflow: hidden;
+    }
+    .mb-bar-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--orange-dark), var(--orange));
+      border-radius: 3px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── Quality panel ── */
+    .mb-quality-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 900px; margin: 0 auto 24px;
+    }
+    .mb-quality-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 36px 24px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+    .mb-quality-card:hover {
+      border-color: rgba(249,115,22,0.45);
+      box-shadow: 0 0 32px rgba(249,115,22,0.14);
+      transform: translateY(-4px);
+    }
+    .mb-quality-card .ring-svg { width: 140px; height: 140px; }
+    .mb-quality-card .ring-center-val { font-size: 1.7rem; }
+    .mb-quality-card .ring-lbl { font-size: 13px; }
+    .mb-quality-card .ring-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-top: 8px; }
+
+    /* ── Process panel ── */
+    .mb-process-grid {
+      max-width: 800px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .mb-proc-row {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 22px 28px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.25s;
+    }
+    .mb-proc-row:hover { border-color: rgba(249,115,22,0.35); }
+    .mb-proc-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+    .mb-proc-name { font-size: 0.93rem; font-weight: 600; color: var(--text-primary); }
+    .mb-proc-pct { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--orange); }
+    .mb-proc-sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5; }
+    .mb-proc-track { height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden; }
+    .mb-proc-fill {
+      height: 100%; border-radius: 4px;
+      background: linear-gradient(to right, var(--orange-dark), var(--orange-light));
+      width: 0;
+      transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    @media (max-width: 900px) {
+      .mb-overview { grid-template-columns: 1fr 1fr; }
+      .mb-rings { grid-template-columns: 1fr 1fr; }
+      .mb-quality-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .mb-overview { grid-template-columns: 1fr 1fr; }
+      .mb-rings { grid-template-columns: 1fr 1fr; }
+      .mb-delivery-grid { grid-template-columns: 1fr; }
+      .mb-quality-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== PROJECT ACCORDION ===== */
+    .proj-filter-row {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-bottom: 36px;
+    }
+    .pf-btn {
+      padding: 6px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      color: var(--text-secondary);
+      font-size: 12px; font-weight: 500;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .pf-btn:hover, .pf-btn.active {
+      background: rgba(249,115,22,0.1);
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+    .proj-accordion {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .pa-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      transition: border-color 0.25s;
+    }
+    .pa-item.open, .pa-item:hover { border-color: rgba(249,115,22,0.35); }
+    .pa-header {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 22px; cursor: pointer;
+      user-select: none;
+    }
+    .pa-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 900;
+      color: rgba(249,115,22,0.4); flex-shrink: 0;
+      width: 32px;
+    }
+    .pa-domain {
+      display: inline-block;
+      padding: 3px 10px;
+      background: rgba(249,115,22,0.08);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--orange);
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .pa-title {
+      flex: 1;
+      font-size: 0.93rem; font-weight: 600;
+      color: var(--text-primary); line-height: 1.35;
+    }
+    .pa-toggle {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(249,115,22,0.1);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange); font-size: 12px;
+      flex-shrink: 0; transition: transform 0.3s, background 0.2s;
+    }
+    .pa-item.open .pa-toggle { transform: rotate(45deg); background: rgba(249,115,22,0.2); }
+    .pa-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .pa-item.open .pa-body { max-height: 800px; }
+    .pa-inner {
+      padding: 0 22px 22px 68px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 24px;
+    }
+    .pa-field { display: flex; flex-direction: column; gap: 4px; }
+    .pa-field.full { grid-column: 1 / -1; }
+    .pa-lbl {
+      font-size: 9.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--orange);
+    }
+    .pa-val {
+      font-size: 0.85rem; color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .pa-outcome {
+      grid-column: 1 / -1;
+      background: rgba(249,115,22,0.07);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 10px; padding: 12px 16px;
+    }
+    .pa-outcome .pa-lbl { margin-bottom: 4px; }
+    .pa-outcome .pa-val { color: var(--orange-light); font-weight: 500; }
+    @media (max-width: 640px) {
+      .pa-inner { grid-template-columns: 1fr; padding-left: 22px; }
+      .pa-domain { display: none; }
+    }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .about-layout { grid-template-columns: 1fr; gap: 36px; }
+      .about-stats { flex-direction: row; flex-wrap: wrap; }
+      .stat-card { flex: 1; min-width: 140px; }
+      .hero-avatar { display: none; }
+    }
+    @media (max-width: 768px) {
+      nav {
+        gap: 1px; padding: 5px 8px; top: 8px;
+        max-width: calc(100vw - 20px);
+        overflow-x: auto; flex-wrap: nowrap;
+      }
+      nav::-webkit-scrollbar { display: none; }
+      nav a { padding: 6px 10px; font-size: 11px; }
+      section { padding: 80px 4% 70px; }
+      .metrics-rail { grid-template-columns: 1fr 1fr; }
+      .metric-cell:nth-child(2n) { border-right: none; }
+    }
+    @media (max-width: 480px) {
+      .metrics-rail { grid-template-columns: 1fr; }
+      .metric-cell { border-right: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Starfield Canvas -->
+<canvas id="starfield"></canvas>
+
+<!-- Floating Orbs -->
+<div class="orb" style="width:90px;height:90px;top:13%;left:6%;animation-duration:7s;opacity:0.85;"></div>
+<div class="orb" style="width:52px;height:52px;top:22%;left:38%;animation-duration:9s;animation-delay:2s;opacity:0.6;"></div>
+<div class="orb" style="width:108px;height:108px;top:8%;right:4%;animation-duration:8s;animation-delay:1s;opacity:0.75;"></div>
+<div class="orb" style="width:45px;height:45px;top:58%;right:12%;animation-duration:10s;animation-delay:3s;opacity:0.5;"></div>
+<div class="orb" style="width:66px;height:66px;bottom:22%;left:4%;animation-duration:6s;animation-delay:1.5s;opacity:0.65;"></div>
+<div class="orb" style="width:38px;height:38px;top:48%;left:18%;animation-duration:11s;animation-delay:4s;opacity:0.4;"></div>
+<div class="orb" style="width:78px;height:78px;bottom:35%;right:28%;animation-duration:8.5s;animation-delay:0.8s;opacity:0.45;"></div>
+
+<!-- ======== NAVIGATION ======== -->
+<nav id="mainNav">
+  <a href="#home"         class="active">Home</a>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#experience">Experience</a>
+  <a href="#projects">Projects</a>
+  <a href="#case-studies">Case Studies</a>
+  <a href="#metrics">Metrics</a>
+  <a href="#leadership">Leadership</a>
+</nav>
+
+<main>
+
+  <!-- ======================================
+       SECTION 1 — HOME
+       ====================================== -->
+  <section id="home">
+
+    <!-- Mountain scene -->
+    <svg class="mountain-scene" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Far range -->
+      <path d="M0 500 L0 280 L120 130 L240 220 L380 90 L520 195 L660 75 L800 180 L940 70 L1080 175 L1220 95 L1360 185 L1440 130 L1440 500 Z"
+            fill="#150804" opacity="0.7"/>
+      <!-- Mid range - brighter orange tint from horizon glow -->
+      <path d="M0 500 L0 340 L90 230 L210 310 L360 200 L500 290 L660 195 L800 280 L960 185 L1100 270 L1250 195 L1380 265 L1440 225 L1440 500 Z"
+            fill="#220e06" opacity="0.8"/>
+      <!-- Near hills -->
+      <path d="M0 500 L0 390 L80 330 L190 380 L310 315 L440 365 L570 300 L700 355 L830 295 L960 350 L1090 290 L1220 345 L1350 290 L1440 330 L1440 500 Z"
+            fill="#2e1208" opacity="0.9"/>
+      <!-- Forest silhouette -->
+      <path d="M0 500 L0 440 L30 420 L55 440 L75 415 L100 435 L130 410 L160 432 L185 408 L215 428 L245 405 L275 428 L305 405 L335 428 L360 405 L390 425 L420 400 L455 420 L490 398 L525 415 L560 395 L600 412 L640 392 L680 410 L720 390 L765 408 L810 388 L855 406 L900 385 L945 402 L990 382 L1035 398 L1080 378 L1125 395 L1170 375 L1215 392 L1260 373 L1305 390 L1350 372 L1395 388 L1440 370 L1440 500 Z"
+            fill="#1a0a04"/>
+      <!-- Darkest foreground strip -->
+      <path d="M0 500 L0 470 L1440 470 L1440 500 Z" fill="#0f0602"/>
+    </svg>
+
+    <!-- Horizon ambient glow -->
+    <div class="horizon-glow"></div>
+
+    <!-- Hero text -->
+    <div class="hero-content">
+      <p class="hero-greeting">Hi, I'm</p>
+      <h1 class="hero-name">Roshan Ali</h1>
+      <p class="hero-title">Senior AI QA Engineer &nbsp;·&nbsp; ERP &amp; AI Platform QA &nbsp;·&nbsp; API &amp; Data &nbsp;·&nbsp; Agile Shift-Left QA</p>
+      <div class="hero-buttons">
+        <a href="/Users/user/Downloads/Roshan_Ali_QA_Main.pdf" download class="btn-primary"><i class="fas fa-download"></i> Download CV</a>
+        <a href="#projects" class="btn-outline"><i class="fas fa-folder-open"></i> View Projects</a>
+      </div>
+      <div class="social-links">
+        <a href="https://linkedin.com/in/ahamedroshanali" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:AhamedRoshanAli@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+        <a href="tel:+971588223256" title="Phone"><i class="fas fa-phone"></i></a>
+        <a href="#" title="UAE"><i class="fas fa-map-marker-alt"></i></a>
+      </div>
+    </div>
+
+    <!-- Hexagonal Avatar -->
+    <div class="hero-avatar">
+      <div class="hex-container">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f97316"/>
+              <stop offset="100%" stop-color="#c2410c"/>
+            </linearGradient>
+            <filter id="gf"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <!-- Outer glow hex -->
+          <path d="M150 18 L262 81 L262 219 L150 282 L38 219 L38 81 Z"
+                fill="none" stroke="rgba(249,115,22,0.25)" stroke-width="1.5" filter="url(#gf)"/>
+          <!-- Main hex -->
+          <path d="M150 28 L252 87 L252 213 L150 272 L48 213 L48 87 Z"
+                fill="rgba(249,115,22,0.07)" stroke="url(#hg)" stroke-width="2"/>
+          <!-- Inner ring -->
+          <path d="M150 48 L232 96 L232 204 L150 252 L68 204 L68 96 Z"
+                fill="none" stroke="rgba(249,115,22,0.18)" stroke-width="1"/>
+          <!-- Dots at corners -->
+          <circle cx="150" cy="28"  r="4.5" fill="#f97316" filter="url(#gf)"/>
+          <circle cx="252" cy="87"  r="4.5" fill="#f97316" filter="url(#gf)"/>
+          <circle cx="252" cy="213" r="4.5" fill="#f97316" filter="url(#gf)"/>
+          <circle cx="150" cy="272" r="4.5" fill="#f97316" filter="url(#gf)"/>
+          <circle cx="48"  cy="213" r="4.5" fill="#f97316" filter="url(#gf)"/>
+          <circle cx="48"  cy="87"  r="4.5" fill="#f97316" filter="url(#gf)"/>
+          <!-- Orbit ring decoration -->
+          <ellipse cx="150" cy="150" rx="120" ry="28" fill="none"
+                   stroke="rgba(249,115,22,0.12)" stroke-width="1" stroke-dasharray="4 6"
+                   transform="rotate(-20,150,150)"/>
+          <!-- Play button accent -->
+          <polygon points="130,138 130,162 154,150" fill="rgba(249,115,22,0.6)"/>
+        </svg>
+        <div class="avatar-center">👨‍💻</div>
+      </div>
+    </div>
+
+    <!-- Tool Carousel -->
+    <div class="tool-carousel-outer">
+      <div class="tool-carousel">
+        <button class="carousel-arrow" id="carouselPrev"><i class="fas fa-chevron-left"></i></button>
+        <div class="carousel-track" id="carouselTrack">
+          <div class="tool-chip">
+            <div class="tool-chip-icon" style="background:#ef5b25;color:#fff;font-size:17px;"><i class="fas fa-paper-plane"></i></div>
+            <span class="tool-chip-label">Postman</span>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-icon" style="background:#336791;color:#fff;font-size:13px;font-weight:700;">SQL</div>
+            <span class="tool-chip-label">SQL / DB</span>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-icon" style="background:#1e7e4e;color:#fff;font-size:13px;font-weight:700;">Se</div>
+            <span class="tool-chip-label">Selenium</span>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-icon" style="background:#0052cc;color:#fff;font-size:17px;"><i class="fab fa-jira"></i></div>
+            <span class="tool-chip-label">Jira</span>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-icon" style="background:#1565c0;color:#fff;font-size:13px;font-weight:700;">Xr</div>
+            <span class="tool-chip-label">Xray</span>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-icon" style="background:#172b4d;color:#fff;font-size:13px;font-weight:700;"><i class="fas fa-book"></i></div>
+            <span class="tool-chip-label">Confluence</span>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-icon" style="background:#49cc90;color:#1a1a1a;font-size:12px;font-weight:700;">SW</div>
+            <span class="tool-chip-label">Swagger</span>
+          </div>
+          <div class="tool-chip">
+            <div class="tool-chip-icon" style="background:#c0392b;color:#fff;font-weight:900;font-size:15px;">J</div>
+            <span class="tool-chip-label">Jenkins</span>
+          </div>
+        </div>
+        <button class="carousel-arrow" id="carouselNext"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+      <span>Scroll</span>
+    </div>
+
+  </section>
+
+  <!-- ======================================
+       SECTION 2 — ABOUT
+       ====================================== -->
+  <section id="about">
+    <div class="section-header">
+      <span class="section-tag">Professional Summary</span>
+      <h2 class="section-title">5+ Years of Quality Excellence</h2>
+      <div class="glow-divider"></div>
+    </div>
+    <div class="about-layout">
+      <div class="about-stats">
+        <div class="card stat-card reveal">
+          <div class="stat-num">90+</div>
+          <div class="stat-lbl">Agile Sprints Delivered</div>
+        </div>
+        <div class="card stat-card reveal">
+          <div class="stat-num">1,200+</div>
+          <div class="stat-lbl">Defects Governed to Closure</div>
+        </div>
+        <div class="card stat-card reveal">
+          <div class="stat-num">2,500+</div>
+          <div class="stat-lbl">Test Cases Executed</div>
+        </div>
+        <div class="card stat-card reveal">
+          <div class="stat-num">67+</div>
+          <div class="stat-lbl">Tech Specs Reviewed</div>
+        </div>
+      </div>
+      <div class="about-narrative reveal">
+        <h3>Engineering Quality in the Age of Intelligent Systems</h3>
+        <p>
+          <strong>ISTQB Certified Test Manager (CTAL-TM)</strong> and <strong>Lean Six Sigma Green Belt</strong>
+          with 5+ years of hands-on experience architecting quality strategies for complex,
+          non-deterministic <strong>ERP and AI scheduling platforms</strong>. Proven track record of
+          orchestrating end-to-end validation across functional, performance, and security-aware
+          testing while remaining deeply embedded in <strong>API, data, and system-level verification</strong>.
+        </p>
+        <p>
+          Drove <strong>zero-critical-defect releases</strong> by pioneering AI-assisted testing,
+          optimising regression coverage, and accelerating root-cause resolution across sophisticated
+          software-hardware implementations. Specialised in designing custom constraint-driven
+          frameworks — rules, invariants, feasibility, cost, and impact checks — for
+          <strong>non-deterministic AI output validation</strong>.
+        </p>
+        <p>
+          Recognised for taking full ownership of quality outcomes, <strong>mentoring senior QA
+          engineers</strong>, and influencing cross-functional teams to adopt shift-left practices
+          that prevent defects before they reach development.
+        </p>
+        <div class="tag-row">
+          <span class="tag tag-orange">ISTQB CTAL-TM</span>
+          <span class="tag tag-orange">Lean Six Sigma Green Belt</span>
+          <span class="tag tag-orange">Risk-Based Testing</span>
+          <span class="tag tag-orange">Shift-Left QA</span>
+          <span class="tag tag-orange">Non-Deterministic AI Validation</span>
+          <span class="tag tag-orange">ERP Platform QA</span>
+          <span class="tag tag-orange">Defect Governance</span>
+          <span class="tag tag-orange">API &amp; Data Validation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================
+       SECTION 3 — SKILLS
+       ====================================== -->
+  <section id="skills">
+    <div class="section-header">
+      <span class="section-tag">Core Competencies</span>
+      <h2 class="section-title">Tools &amp; Expertise</h2>
+      <p class="section-subtitle">A comprehensive toolkit for end-to-end quality engineering across modern enterprise environments.</p>
+      <div class="glow-divider"></div>
+    </div>
+    <div class="skills-grid">
+
+      <div class="card skill-card reveal">
+        <div class="skill-card-icon"><i class="fas fa-chess-rook"></i></div>
+        <h4>Test Management &amp; Strategy</h4>
+        <div class="tag-wrap">
+          <span class="tag">Test Strategy &amp; Planning</span><span class="tag">Risk-Based Testing</span>
+          <span class="tag">Release Readiness</span><span class="tag">JIRA</span>
+          <span class="tag">Xray</span><span class="tag">Confluence</span>
+          <span class="tag">TestRail</span><span class="tag">RTC</span>
+        </div>
+      </div>
+
+      <div class="card skill-card reveal">
+        <div class="skill-card-icon"><i class="fas fa-brain"></i></div>
+        <h4>ERP &amp; AI Platform QA</h4>
+        <div class="tag-wrap">
+          <span class="tag">E2E ERP Testing</span><span class="tag">AI PSO Scheduling</span>
+          <span class="tag">Non-Deterministic Validation</span>
+          <span class="tag">Constraint-Driven Frameworks</span>
+          <span class="tag">Invariant Checks</span><span class="tag">Feasibility Testing</span>
+        </div>
+      </div>
+
+      <div class="card skill-card reveal">
+        <div class="skill-card-icon"><i class="fas fa-network-wired"></i></div>
+        <h4>API &amp; Data Validation</h4>
+        <div class="tag-wrap">
+          <span class="tag">Postman</span><span class="tag">Swagger</span>
+          <span class="tag">SQL / Database Validation</span>
+          <span class="tag">Data Integrity</span><span class="tag">Log Analysis</span>
+          <span class="tag">End-to-End Data Correctness</span>
+        </div>
+      </div>
+
+      <div class="card skill-card reveal">
+        <div class="skill-card-icon"><i class="fas fa-check-double"></i></div>
+        <h4>Functional &amp; Regression Testing</h4>
+        <div class="tag-wrap">
+          <span class="tag">Functional Testing</span><span class="tag">Regression Testing</span>
+          <span class="tag">Integration Testing</span><span class="tag">Smoke Testing</span>
+          <span class="tag">UAT</span><span class="tag">Production Sign-Off</span>
+          <span class="tag">Exploratory Testing</span>
+        </div>
+      </div>
+
+      <div class="card skill-card reveal">
+        <div class="skill-card-icon"><i class="fas fa-bug"></i></div>
+        <h4>Defect Lifecycle Governance</h4>
+        <div class="tag-wrap">
+          <span class="tag">Defect Triage</span><span class="tag">Root-Cause Analysis</span>
+          <span class="tag">Severity Discipline</span><span class="tag">Quality Gate Reviews</span>
+          <span class="tag">Reproducibility Standards</span><span class="tag">Defect Aging</span>
+        </div>
+      </div>
+
+      <div class="card skill-card reveal">
+        <div class="skill-card-icon"><i class="fas fa-infinity"></i></div>
+        <h4>Delivery &amp; Agile QA</h4>
+        <div class="tag-wrap">
+          <span class="tag">Agile / Scrum</span><span class="tag">Shift-Left QA</span>
+          <span class="tag">Jenkins CI/CD</span><span class="tag">Sprint Planning</span>
+          <span class="tag">Tech Spec Review</span><span class="tag">Release Risk Reporting</span>
+        </div>
+      </div>
+
+      <div class="card skill-card reveal">
+        <div class="skill-card-icon"><i class="fas fa-robot"></i></div>
+        <h4>Test Automation</h4>
+        <div class="tag-wrap">
+          <span class="tag">Selenium</span><span class="tag">AI-Assisted Test Design</span>
+          <span class="tag">Regression Optimisation</span><span class="tag">Defect Clustering</span>
+          <span class="tag">JAVA</span><span class="tag">Automation Frameworks</span>
+        </div>
+      </div>
+
+      <div class="card skill-card reveal">
+        <div class="skill-card-icon"><i class="fas fa-users"></i></div>
+        <h4>Leadership &amp; Communication</h4>
+        <div class="tag-wrap">
+          <span class="tag">Stakeholder Reporting</span><span class="tag">Cross-Functional Alignment</span>
+          <span class="tag">QA Mentorship</span><span class="tag">Quality Gate Ownership</span>
+          <span class="tag">Go/No-Go Decisions</span><span class="tag">Dashboard Ownership</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================
+       SECTION 4 — EXPERIENCE
+       ====================================== -->
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-tag">Career Journey</span>
+      <h2 class="section-title">Experience Timeline</h2>
+      <p class="section-subtitle">A decade of quality ownership and end-to-end strategy for enterprise-level products.</p>
+      <div class="glow-divider"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="card t-card reveal">
+          <span class="t-date">Apr 2022 — Dec 2025</span>
+          <div class="t-role">Senior Software Engineer – Quality Assurance</div>
+          <div class="t-company">IFS &nbsp;(IFS R&amp;D International Pvt Ltd)</div>
+          <p class="t-desc">
+            Architected end-to-end quality strategy for a non-deterministic ERP &amp; AI PSO scheduling platform — single-handedly owning test strategy, risk-based prioritisation, and release readiness across 90+ sprints, consistently delivering on-time, high-confidence releases. Engineered and executed 2,500+ test cases across 510+ user stories spanning functional, regression, integration, smoke, and UAT, achieving full traceability from specs to outcomes with zero escapes to production.
+          </p>
+          <p class="t-desc">
+            Drove defect governance at enterprise scale: triaged and accelerated resolution for 1,200+ defects, enforcing reproducibility standards and severity discipline that cut average defect age by 35%. Led 80+ defect triage and quality gate reviews as the sole quality lead, aligning Dev, Product, and stakeholders. Pioneered constraint-driven validation for non-deterministic AI outputs — rules, invariants, feasibility, cost, and impact checks — that became the team's standard methodology. Mentored and upskilled 3 senior QAs, reducing review rework by 25%, and championed AI-assisted QA adoption across R&amp;D.
+          </p>
+          <div class="t-tags">
+            <span class="tag">ERP &amp; AI Platform QA</span><span class="tag">Non-Deterministic Validation</span>
+            <span class="tag">Postman + SQL</span><span class="tag">Jira &amp; Xray</span>
+            <span class="tag">Shift-Left QA</span><span class="tag">Release Readiness</span>
+            <span class="tag">QA Mentorship</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="card t-card reveal">
+          <span class="t-date">Oct 2021 — Apr 2022</span>
+          <div class="t-role">Industrial Engineer</div>
+          <div class="t-company">MAS Holdings (Thurulie)</div>
+          <p class="t-desc">
+            Overhauled data collection and reporting processes, eliminating manual inconsistencies by 30% and boosting operational data integrity by 25% across tracking and reconciliation systems — directly improving decision-making accuracy. Established 10+ operational metrics and acceptance criteria for process changes, enforcing outcome validation before every rollout and maintaining 100% Integrated Management System compliance across health, safety, quality, and environmental standards.
+          </p>
+          <div class="t-tags">
+            <span class="tag">Data Integrity</span><span class="tag">Process Validation</span>
+            <span class="tag">Operational Metrics</span><span class="tag">IMS Compliance</span>
+            <span class="tag">Acceptance Criteria</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================
+       SECTION 5 — PROJECTS
+       ====================================== -->
+  <section id="projects">
+    <div class="section-header">
+      <span class="section-tag">Work Gallery</span>
+      <h2 class="section-title">Featured Projects &amp; Artifacts</h2>
+      <p class="section-subtitle">Test strategies, frameworks, and QA artifacts from real enterprise engagements.</p>
+      <div class="glow-divider"></div>
+    </div>
+    <!-- Filter buttons -->
+    <div class="proj-filter-row">
+      <button class="pf-btn active" data-filter="all">All 25</button>
+      <button class="pf-btn" data-filter="Optimization">Optimization Engine</button>
+      <button class="pf-btn" data-filter="Operations">Operations &amp; UI</button>
+      <button class="pf-btn" data-filter="Workforce">Workforce &amp; Planning</button>
+      <button class="pf-btn" data-filter="Governance">Governance &amp; Analytics</button>
+    </div>
+
+    <div class="proj-accordion" id="projAccordion">
+
+      <div class="pa-item reveal" data-cat="Optimization">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">01</span><span class="pa-domain">Optimization Engine</span><span class="pa-title">Enterprise Scheduling Optimization Engine</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Owned quality for a constraint-aware scheduling engine built to maximize workforce productivity, protect service commitments, reduce avoidable travel, and keep operations scalable as workload increased.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Core optimization layer: activity-to-resource assignment, continuous plan improvement, large search spaces, travel reduction, workload fairness, SLA performance.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Functional validation, risk-based regression, exploratory analysis, solver-behavior comparison, non-deterministic outcome testing.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Degraded plan quality, unstable allocation behavior, hidden solver regressions, poor performance at scale.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Maintained trust in core scheduling decisions by making quality issues visible early and protecting the release pipeline from high-impact optimization regressions.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Operations">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">02</span><span class="pa-domain">Operations UI</span><span class="pa-title">Live Scheduling Operations Workbench</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Drove quality for a real-time operational workspace giving planners, coordinators, and dispatch teams the visibility to control live schedules with speed and confidence.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Scheduling views: resources, activities, maps, comparisons, schedule assistance, historical access, live refresh, timezone-aware presentation.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">End-to-end UI testing, workflow-based regression, usability-focused validation, cross-view consistency checks.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Incorrect operational visibility, broken live refresh, misleading schedule state, inconsistent data across views.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Strengthened quality of the main operational workspace used to observe, interpret, and act on live planning decisions.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Operations">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">03</span><span class="pa-domain">Operational Productivity</span><span class="pa-title">Intelligent Filtering, Views &amp; Operator Navigation</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Supported capabilities helping operational users cut through schedule noise quickly and focus on the resources, activities, timeframes, and constraints that mattered.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Filters, bookmarks, saved views, dataset-aware filtering, shared filters, client/server-side filtering, navigation controls.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Functional testing, edge-case validation, data-scope checks, regression around filter combinations, saved states, navigation shortcuts.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Hidden data, over-filtered schedules, incorrect scope application, operator error from misleading views.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Improved operational efficiency by ensuring users could move through complex schedule data accurately and without unnecessary friction.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Operations">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">04</span><span class="pa-domain">Operational Control</span><span class="pa-title">Manual Intervention &amp; Schedule Override Controls</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Owned quality for the manual intervention layer allowing operations teams to override automation safely when live conditions changed faster than the engine could react.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Manual changes, bulk changes, fixed-time and fixed-resource overrides, preview of manual edits, reason capture, change history.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Functional testing, override-priority validation, audit-history verification, regression across high-risk intervention scenarios.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Invalid overrides, accidental schedule corruption, non-traceable operator actions, conflicts between manual edits and optimization logic.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Made manual intervention safer, more transparent, and more operationally reliable under real-world disruption.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Operations">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">05</span><span class="pa-domain">Decision Support</span><span class="pa-title">Schedule Explainability &amp; Decision Diagnostics</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Supported an explainability layer to increase stakeholder trust by making automated scheduling decisions easier to understand, challenge, and troubleshoot.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Explanation pages, explanation outcomes, diagnostic navigation, linked reasoning flows, schedule-assist behaviors.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Scenario-driven validation, exploratory analysis, message interpretation checks, regression around explanation-linked navigation.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Opaque optimization behavior, misleading explanations, weak traceability from symptom to cause, low operator trust.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Improved the platform's ability to justify scheduling outcomes and supported faster diagnosis when automated results looked wrong.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Optimization">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">06</span><span class="pa-domain">Routing &amp; Optimization</span><span class="pa-title">Travel Optimization &amp; Routing Intelligence</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Worked on travel-aware optimization to lower non-productive travel time, reduce operational cost, and keep route decisions realistic enough for live execution.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Pre-calculated travel matrices, straight-line travel, real-time options, expected arrival logic, travel profiles, route cost behavior, travel analysis.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Route-validation scenarios, cost-model testing, integration-aware regression, performance-sensitive testing on travel-heavy schedules.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Inaccurate travel estimates, unrealistic route choices, degraded scheduling quality, performance slowdowns.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Ensured the optimizer's routing inputs were credible enough to support reliable field execution decisions.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Optimization">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">07</span><span class="pa-domain">Booking Platform</span><span class="pa-title">Appointment Booking Engine</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Owned quality for a booking engine built to expose viable appointment options quickly, increase customer choice, and translate accepted slots into executable schedule commitments.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Appointment requests, offers, offer responses, blocking/non-blocking reservation logic, confirmation flows, booking constraints, concurrency handling.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">End-to-end scenario testing, concurrency validation, API/interface checks, negative-path testing for stale or invalid confirmations.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Double booking, stale offers, invalid confirmations, downstream failures where accepted slots could not be honored.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Improved confidence in customer-facing booking flows by validating both speed and reliability of slot-offer behavior.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Optimization">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">08</span><span class="pa-domain">Rules Engine</span><span class="pa-title">Time Constraints &amp; SLA Enforcement</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Supported core timing controls designed to keep work inside valid service windows, contractual promises, and operational availability limits.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Scheduling windows, SLAs, availabilities, availability patterns, shift boundaries, committed-activity time rules.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Boundary testing, rule-combination testing, exception-oriented regression, scenario validation across overlapping time controls.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Work scheduled outside valid windows, silent SLA breaches, conflicting rule combinations reducing feasibility.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Protected service-timing integrity across one of the most business-critical parts of the scheduling model.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Optimization">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">09</span><span class="pa-domain">Workforce Matching</span><span class="pa-title">Resource Preference, Skills &amp; Region Constraints</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Worked on the constraint framework ensuring work was assigned to the most appropriate resources based on skill, region, preference, and time-aware eligibility.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Resource preferences, region constraints, skill constraints, availability-linked preferences, override priorities, preference-combination behavior.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Rule validation, matrix-style scenario testing, precedence testing, exploratory checks around mixed hard and soft constraints.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Invalid eligibility decisions, incorrect override precedence, assignments that violated business intent.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Improved trust that the platform was matching work to the right people under real operational constraints.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Optimization">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">10</span><span class="pa-domain">Business Prioritization</span><span class="pa-title">Cost-and-Value Optimization Model</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Supported the scoring model that aligned schedule outcomes with business priorities by rewarding high-value work and penalizing expensive execution paths.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Activity values, resource costs, travel costs, SLA behavior, activity prioritization mechanics, score-sensitive scheduling outcomes.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Scenario-based scoring validation, sensitivity testing around cost/value settings, regression on priority-driven schedule behavior.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Poor business alignment, low-value work crowding out high-value work, unintuitive schedules from weak cost calibration.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Ensured optimization decisions reflected business intent rather than accidental configuration.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Optimization">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">11</span><span class="pa-domain">Dependency Management</span><span class="pa-title">Linked Activities &amp; Dependency Orchestration</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Worked on dependency logic to coordinate related work so multi-step, ordered, or synchronized tasks could execute reliably.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Pre-requisites, co-requisites, combined activities, ordered activities, activity pools, separation rules, linked timing.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Chain-based scenario testing, overlap validation, sequence testing, regression across multi-activity orchestration rules.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Broken order logic, impossible dependency chains, invalid overlap, fragmented execution of related work.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Strengthened confidence in coordinating interdependent operational tasks instead of treating them as isolated jobs.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Optimization">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">12</span><span class="pa-domain">Advanced Scheduling</span><span class="pa-title">Split Visit Scheduling Framework</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Supported scheduling behavior making long-running work operationally deliverable by allowing activities to span multiple visits without losing control or continuity.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Splittable activities, minimum visit durations, split costs, split priorities, follow-on behavior, visit completion, multi-resource splits.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Multi-shift scenario testing, interruption/resumption validation, dynamic-update testing, regression on split-routing behavior.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Lost follow-on visits, broken continuity across shifts, invalid split behavior under changing conditions.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Improved confidence in the platform's handling of long-duration work that could not finish in a single visit.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Operations">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">13</span><span class="pa-domain">Execution State</span><span class="pa-title">Activity Status Lifecycle &amp; Dispatch Rules</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Worked on the operational state model controlling how activities moved from unallocated to committed, accepted, in-progress, and completed execution.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Statuses, status ordering, committed activity behavior, dispatch rules, future-shift handling, shift cut-off, route-validity rules.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Lifecycle-path testing, state-transition validation, rule-override testing, regression around dispatch edge cases.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Illegal status changes, invalid dispatch commitments, inconsistent route state, loss of plan-to-field fidelity.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Strengthened the control layer that connects optimization output to real-world execution.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Optimization">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">14</span><span class="pa-domain">Inventory-Aware Scheduling</span><span class="pa-title">Parts-Constrained Scheduling Engine</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Owned quality for parts-aware scheduling logic preventing avoidable service failure by ensuring resources only received work they could complete with available stock.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Resource parts, vehicle parts, global/shared parts, stock, depots, pick-up activities, replenishment paths, refill-to-capacity behavior.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Stock-flow scenarios, replenishment testing, depot-route validation, regression around part-category rules and stock updates.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Impossible assignments, broken replenishment logic, negative stock, incorrect visibility across shared stock models.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Improved trust that scheduled work was actually executable from a parts and replenishment standpoint.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Workforce">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">15</span><span class="pa-domain">Capacity Management</span><span class="pa-title">Capacity Rules &amp; External Contractor Buckets</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Supported capabilities keeping schedules operationally realistic by limiting work over shifts and modeling outsourced capacity in a controlled way.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Shift capacity rules, custom-metric limits, rule overrides, bucket resources, contractor allocations, committed-call behavior.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Rule-combination testing, period-based capacity validation, contractor scenario testing, regression on overridden capacity logic.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Over-allocation, invalid capacity exceptions, rule conflicts, unrealistic contractor abstraction dependence.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Strengthened schedule realism in environments where workload had to stay within hard operational capacity boundaries.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Optimization">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">16</span><span class="pa-domain">Multi-Resource Execution</span><span class="pa-title">Parallel Resource &amp; Crew Coordination</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Worked on scheduling behavior for work requiring multiple resources to act together, without sacrificing timing accuracy or execution control.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Parallel resources, synchronized execution, co-requisite timing, shared end-time scenarios, collaborative route behavior.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Synchronized multi-resource scenarios, edge-case sequencing, regression around timing alignment and status handling.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Desynchronized execution, broken multi-resource coordination, invalid joint-visit behavior in live plans.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Improved confidence in advanced execution models where a task could not be delivered by a single resource alone.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Workforce">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">17</span><span class="pa-domain">Planned Maintenance</span><span class="pa-title">Cyclic Maintenance Scheduling</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Supported recurring-work scheduling to keep repeat maintenance and pattern-based operations consistently planned over time with minimal manual effort.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Modelling patterns, repeatable activities, intervals, leeway handling, usage models, operations, cyclic operation scheduling.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Pattern-based testing, recurrence validation, long-horizon scenario testing, regression around usage-driven maintenance logic.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Recurrence drift, invalid future timing, incorrect operation sequencing, unreliable repeat scheduling under changing conditions.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Ensured the platform could handle maintenance-style work that depended on disciplined repetition rather than one-time dispatching.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Workforce">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">18</span><span class="pa-domain">Workforce Planning</span><span class="pa-title">Workforce Planning Foundation</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Owned quality across a planning workspace turning workforce structure, planning data, and shift design into a reliable foundation for downstream scheduling.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Planning data screens: activity types, resources, skills, SLAs, positions, requirements, parts, rule collections, shift data.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Functional validation, master-data regression, workflow testing, import/export coverage for planning administration.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Broken planning master data, invalid setup states, weak data quality feeding downstream execution.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Established a dependable planning baseline so scheduling quality was not undermined by bad foundational data.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Workforce">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">19</span><span class="pa-domain">Coverage Planning</span><span class="pa-title">Role, Position &amp; Requirement Planning</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Supported requirement-driven planning to ensure the right mix of positions and roles were available at the right time to meet operational demand.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Requirements, role/position requirements, alerting behavior, requirement matching, planning visibility tied to coverage.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Requirement-based scenario testing, under-coverage validation, alert testing, regression across role/position matching logic.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">False coverage signals, undetected staffing gaps, invalid requirement satisfaction, poor planning from inaccurate data.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Improved confidence in workforce coverage planning before shortages could affect live service delivery.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Workforce">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">20</span><span class="pa-domain">Team Scheduling</span><span class="pa-title">Team-Based Resource Planning</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Worked on team-centered planning to let organizations schedule groups of people more effectively where work was delivered as a coordinated team effort.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Teams, team membership, memberships over time, integration of teams with scheduling, team-oriented planning behavior.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Lifecycle testing, membership-period validation, inheritance and integration checks, regression around team-based planning flows.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Broken membership timing, inconsistent team behavior, invalid downstream assumptions when teams fed live schedules.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Strengthened reliability of team-oriented planning where the unit of execution was larger than an individual resource.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Workforce">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">21</span><span class="pa-domain">Planning Automation</span><span class="pa-title">Automated Rota Generation</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Supported automated rota generation to reduce manual planning effort while producing workable shift structures against real demand and rule constraints.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Automated planning, provisional rotas, role overrides, advanced planning options, import shift data, validation on generated plans.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Generated-plan review, rule-conformance validation, regression on planner options, scenario testing around rota feasibility.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Invalid generated rotas, weak rule adherence, misleading provisional results, excessive manual cleanup after automation.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Improved trust in automated planning outputs by validating that generated rotas were both workable and explainable.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Governance">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">22</span><span class="pa-domain">Governance Platform</span><span class="pa-title">Archive, Audit &amp; Recovery Platform</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Owned quality for the historical-control layer designed to preserve a full record of schedule changes, enable forensic analysis, and support recovery from major issues.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Snapshots, audits, audit browsing, restore flows, timetables, failed audits, archive administration, data import/export.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Data-integrity testing, restore validation, retention-path testing, audit traceability checks, operational recovery scenarios.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Missing historical evidence, invalid restore paths, inconsistent archive state, weak post-incident diagnosis support.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Strengthened platform governance by ensuring historical state could be trusted, reviewed, and recovered when needed.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Governance">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">23</span><span class="pa-domain">Analytics Platform</span><span class="pa-title">Historical Reporting &amp; Adaptive Analytics</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Supported reporting capabilities converting archived scheduling data into KPI-ready, query-friendly insight to feed smarter future scheduling behavior.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Reporting tables, fact and dimension structures, reporting generation, analysis data, predictive duration inputs, archive-linked analytics.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Data-pipeline validation, report-structure testing, consistency checks between operational and reporting data, regression on generated outputs.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Inaccurate KPIs, broken dimensional analysis, stale reporting outputs, weak trust in history-based improvement signals.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Improved confidence in the analytics layer used to understand performance and guide future optimization decisions.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Governance">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">24</span><span class="pa-domain">Simulation Platform</span><span class="pa-title">What-If Workforce Simulation</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Worked on simulation capability letting planners test how changes in demand, resourcing, and targets would affect operational performance before making live changes.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Demand modeling, resourcing modeling, automatic resourcing changes, targets, basic/advanced tests, result views, baseline investigation flows.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Scenario-based simulation testing, target-driven validation, baseline-versus-variant comparison, result-interpretation checks.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Misleading forecasts, weak scenario realism, false performance assumptions, decisions based on invalid simulated outcomes.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Made simulation credible as a decision-support tool rather than just a demonstration feature.</div></div>
+        </div></div>
+      </div>
+
+      <div class="pa-item reveal" data-cat="Governance">
+        <div class="pa-header" onclick="togglePA(this)"><span class="pa-num">25</span><span class="pa-domain">Scenario Modeling</span><span class="pa-title">Operational Scenario Visualization &amp; Test Data Simulation</span><span class="pa-toggle"><i class="fas fa-plus"></i></span></div>
+        <div class="pa-body"><div class="pa-inner">
+          <div class="pa-field full"><div class="pa-lbl">Business Goal</div><div class="pa-val">Supported a visual scenario environment letting users create resources, activities, constraints, and test runs quickly before rolling anything into live operations.</div></div>
+          <div class="pa-field"><div class="pa-lbl">System / Module</div><div class="pa-val">Scenario creation, bulk data generation, map-driven setup, co-requisites, appointments, imports/exports, data validation, replay-style simulation runs.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Test Approach</div><div class="pa-val">Workflow testing, scenario-integrity checks, simulation-run validation, regression across visual and imported test data paths.</div></div>
+          <div class="pa-field"><div class="pa-lbl">Biggest Risks</div><div class="pa-val">Invalid generated data, misleading visual simulations, weak scenario portability, poor fidelity between simulated and operational behavior.</div></div>
+          <div class="pa-outcome"><div class="pa-lbl">Outcome</div><div class="pa-val">Improved confidence in the platform's ability to model, test, and demonstrate complex scheduling behavior safely outside live production.</div></div>
+        </div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================
+       SECTION 6 — CASE STUDIES
+       ====================================== -->
+  <section id="case-studies">
+    <div class="section-header">
+      <span class="section-tag">Root Cause Analysis</span>
+      <h2 class="section-title">Problem-Solving Case Studies</h2>
+      <p class="section-subtitle">Complex defect investigations and high-impact resolutions that prevented critical production failures.</p>
+      <div class="glow-divider"></div>
+    </div>
+    <div class="cases-grid">
+
+      <div class="card case-card reveal">
+        <div class="case-num">01</div>
+        <div class="case-title">Non-Deterministic AI Scheduling Output Producing Invalid Plans</div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-exclamation"></i></div>
+          <div class="case-step-body"><h5>Problem</h5><p>The AI PSO scheduling engine was producing plans that passed basic functional checks but violated real-world business constraints — over-allocated resources, infeasible task sequencing, and cost estimates outside acceptable bounds. Standard test cases couldn't catch it because no two outputs were identical.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-microscope"></i></div>
+          <div class="case-step-body"><h5>Investigation</h5><p>Existing test cases validated specific expected outputs — inapplicable for non-deterministic engines. Mapped the domain's hard constraints (resource capacity, task dependencies, cost ceilings) and designed invariant-based checks that held true regardless of the specific schedule produced.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-wrench"></i></div>
+          <div class="case-step-body"><h5>Resolution</h5><p>Pioneered a constraint-driven validation framework — rules, invariants, feasibility checks, cost bounds, and impact assessments — that validated outputs against business rules rather than exact values. Adopted as the team's standard methodology for all AI output testing.</p></div>
+        </div>
+        <div class="case-impact"><p><i class="fas fa-shield-alt" style="margin-right:7px;"></i>Zero AI-related production escapes across 90+ sprints. Framework became the R&amp;D standard for non-deterministic validation.</p></div>
+      </div>
+
+      <div class="card case-card reveal">
+        <div class="case-num">02</div>
+        <div class="case-title">Critical Data-Layer Inconsistencies Hidden Beneath Passing UI Tests</div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-exclamation"></i></div>
+          <div class="case-step-body"><h5>Problem</h5><p>Functional UI tests on the IFS platform were consistently green, yet stakeholder-reported data discrepancies in scheduling outputs persisted across releases. Root cause was unknown and intermittent.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-microscope"></i></div>
+          <div class="case-step-body"><h5>Investigation</h5><p>Shifted focus below the UI layer. Used Postman for systematic API contract validation and deep SQL queries to verify data integrity across service boundaries. Identified a silent data transformation mismatch at an integration point that corrupted values before they surfaced in the UI.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-wrench"></i></div>
+          <div class="case-step-body"><h5>Resolution</h5><p>Introduced mandatory API + SQL validation layer as a standard gate in the release checklist. All cross-service data flows now verified at the data layer, not just through UI assertions.</p></div>
+        </div>
+        <div class="case-impact"><p><i class="fas fa-check-circle" style="margin-right:7px;"></i>Eliminated the class of silent data bugs. End-to-end data correctness verified across all services and integrations from that sprint forward.</p></div>
+      </div>
+
+      <div class="card case-card reveal">
+        <div class="case-num">03</div>
+        <div class="case-title">Uncontrolled Defect Ageing Blocking Release Pipeline</div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-exclamation"></i></div>
+          <div class="case-step-body"><h5>Problem</h5><p>Defects were accumulating across sprints with inconsistent severity classifications, unclear ownership, and no enforced resolution timelines. The release pipeline was being blocked by ambiguous defect states and stakeholders lacked confidence in quality reporting.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-microscope"></i></div>
+          <div class="case-step-body"><h5>Investigation</h5><p>Audited the full open defect backlog. Found that 60%+ of open items lacked reproducible steps, clear severity justification, or assigned resolution accountability — making triage decisions arbitrary and slow.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-wrench"></i></div>
+          <div class="case-step-body"><h5>Resolution</h5><p>Led 80+ defect triage and quality gate review sessions, establishing reproducibility standards, severity discipline, and clear Dev accountability. Built Jira &amp; Xray dashboards tracking defect ageing, trends, and coverage — producing weekly stakeholder-ready release reports.</p></div>
+        </div>
+        <div class="case-impact"><p><i class="fas fa-chart-line" style="margin-right:7px;"></i>Average defect age cut by 35%. Go/no-go decisions became data-driven. Release pipeline unblocked and on-time delivery sustained across 90+ sprints.</p></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================
+       SECTION 7 — METRICS
+       ====================================== -->
+  <section id="metrics">
+    <div class="section-header">
+      <span class="section-tag">QA Metrics</span>
+      <h2 class="section-title">Interactive Impact Dashboard</h2>
+      <p class="section-subtitle">Real numbers from 3+ years of quality ownership at IFS R&amp;D.</p>
+      <div class="glow-divider"></div>
+    </div>
+
+    <!-- Tab strip -->
+    <div class="mb-tabs">
+      <button class="mb-tab active" data-tab="overview">Overview</button>
+      <button class="mb-tab" data-tab="delivery">Delivery Stats</button>
+      <button class="mb-tab" data-tab="quality">Quality Impact</button>
+      <button class="mb-tab" data-tab="process">Process Gains</button>
+    </div>
+
+    <!-- SVG gradient def (shared) -->
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ea580c"/>
+          <stop offset="100%" stop-color="#fb923c"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <!-- ══ OVERVIEW ══ -->
+    <div class="mb-panel active" id="tab-overview">
+      <div class="mb-overview">
+        <div class="mb-num-card">
+          <span class="card-icon"><i class="fas fa-rocket"></i></span>
+          <div class="card-val mb-count" data-target="90" data-suffix="+">0</div>
+          <div class="card-lbl">Agile Sprints Delivered</div>
+          <div class="card-tip">3+ years · sole QA lead · consistent on-time delivery</div>
+        </div>
+        <div class="mb-num-card">
+          <span class="card-icon"><i class="fas fa-bug"></i></span>
+          <div class="card-val mb-count" data-target="1200" data-suffix="+">0</div>
+          <div class="card-lbl">Defects Governed to Closure</div>
+          <div class="card-tip">Triaged, classified &amp; resolved · avg age cut 35%</div>
+        </div>
+        <div class="mb-num-card">
+          <span class="card-icon"><i class="fas fa-flask"></i></span>
+          <div class="card-val mb-count" data-target="2500" data-suffix="+">0</div>
+          <div class="card-lbl">Test Cases Executed</div>
+          <div class="card-tip">510+ user stories · full spec-to-outcome traceability</div>
+        </div>
+        <div class="mb-num-card">
+          <span class="card-icon"><i class="fas fa-file-alt"></i></span>
+          <div class="card-val mb-count" data-target="67" data-suffix="+">0</div>
+          <div class="card-lbl">Tech Specs Reviewed</div>
+          <div class="card-tip">Shift-Left: flagged edge cases before development began</div>
+        </div>
+      </div>
+
+      <div class="mb-rings">
+        <div class="mb-ring-card">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="54"/>
+            <circle class="ring-fill" cx="60" cy="60" r="54" data-pct="40"/>
+            <text x="60" y="55" text-anchor="middle" dominant-baseline="middle" class="ring-center-val">40%</text>
+            <text x="60" y="72" text-anchor="middle" class="ring-center-sub">prevented</text>
+          </svg>
+          <div class="ring-lbl">Defects Prevented<br>via Spec Reviews</div>
+        </div>
+        <div class="mb-ring-card">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="54"/>
+            <circle class="ring-fill" cx="60" cy="60" r="54" data-pct="35"/>
+            <text x="60" y="55" text-anchor="middle" dominant-baseline="middle" class="ring-center-val">35%</text>
+            <text x="60" y="72" text-anchor="middle" class="ring-center-sub">reduction</text>
+          </svg>
+          <div class="ring-lbl">Avg Defect Age<br>Cut</div>
+        </div>
+        <div class="mb-ring-card">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="54"/>
+            <circle class="ring-fill" cx="60" cy="60" r="54" data-pct="25"/>
+            <text x="60" y="55" text-anchor="middle" dominant-baseline="middle" class="ring-center-val">25%</text>
+            <text x="60" y="72" text-anchor="middle" class="ring-center-sub">less rework</text>
+          </svg>
+          <div class="ring-lbl">Review Rework<br>Reduced (Mentoring)</div>
+        </div>
+        <div class="mb-ring-card">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="54"/>
+            <circle class="ring-fill ring-fill-special" cx="60" cy="60" r="54" data-pct="100"/>
+            <text x="60" y="52" text-anchor="middle" dominant-baseline="middle" class="ring-center-val" style="fill:#22c55e;font-size:1.1rem;">ZERO</text>
+            <text x="60" y="68" text-anchor="middle" class="ring-center-sub" style="fill:#22c55e;">escapes</text>
+          </svg>
+          <div class="ring-lbl">Production Escapes<br><span style="color:#22c55e;font-weight:600;">90+ Sprints · 0 Defects</span></div>
+        </div>
+      </div>
+
+      <div class="mb-achieve">
+        <div class="mb-achieve-badge"><i class="fas fa-trophy"></i><span>Zero Production Escapes</span></div>
+        <p>Sole QA lead across 90+ sprints on a non-deterministic ERP &amp; AI scheduling platform — achieved full traceability from specs to outcomes with zero defects escaping to production across the entire engagement.</p>
+      </div>
+    </div>
+
+    <!-- ══ DELIVERY ══ -->
+    <div class="mb-panel" id="tab-delivery">
+      <div class="mb-delivery-grid">
+        <div class="mb-bar-card">
+          <div class="mb-bar-header">
+            <div class="mb-bar-val mb-count" data-target="90" data-suffix="+">0</div>
+            <div class="mb-bar-lbl">Agile Sprints<br>Delivered</div>
+          </div>
+          <p class="mb-bar-desc">3+ years as sole QA lead on IFS ERP &amp; AI PSO scheduling platform. Consistently on-time, high-confidence releases across every sprint.</p>
+          <div class="mb-bar-track"><div class="mb-bar-fill" data-width="90"></div></div>
+        </div>
+        <div class="mb-bar-card">
+          <div class="mb-bar-header">
+            <div class="mb-bar-val mb-count" data-target="1200" data-suffix="+">0</div>
+            <div class="mb-bar-lbl">Defects Governed<br>to Closure</div>
+          </div>
+          <p class="mb-bar-desc">Triaged, classified, and accelerated resolution for 1,200+ defects — enforcing reproducibility standards and severity discipline across Dev, Product, and stakeholders.</p>
+          <div class="mb-bar-track"><div class="mb-bar-fill" data-width="100"></div></div>
+        </div>
+        <div class="mb-bar-card">
+          <div class="mb-bar-header">
+            <div class="mb-bar-val mb-count" data-target="2500" data-suffix="+">0</div>
+            <div class="mb-bar-lbl">Test Cases<br>Executed</div>
+          </div>
+          <p class="mb-bar-desc">Engineered and executed 2,500+ test cases across 510+ user stories spanning functional, regression, integration, smoke, and UAT — with full spec-to-outcome traceability.</p>
+          <div class="mb-bar-track"><div class="mb-bar-fill" data-width="100"></div></div>
+        </div>
+        <div class="mb-bar-card">
+          <div class="mb-bar-header">
+            <div class="mb-bar-val mb-count" data-target="67" data-suffix="+">0</div>
+            <div class="mb-bar-lbl">Tech Specs<br>Reviewed</div>
+          </div>
+          <p class="mb-bar-desc">Reviewed 67+ technical specifications and design changes before development, flagging edge cases, testability gaps, and integration risks — preventing an estimated 40% of defects from ever being written.</p>
+          <div class="mb-bar-track"><div class="mb-bar-fill" data-width="67"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ QUALITY ══ -->
+    <div class="mb-panel" id="tab-quality">
+      <div class="mb-quality-grid">
+        <div class="mb-quality-card">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="54"/>
+            <circle class="ring-fill" cx="60" cy="60" r="54" data-pct="40"/>
+            <text x="60" y="55" text-anchor="middle" dominant-baseline="middle" class="ring-center-val">40%</text>
+            <text x="60" y="72" text-anchor="middle" class="ring-center-sub">prevented</text>
+          </svg>
+          <div class="ring-lbl">Defects Prevented via Spec Reviews</div>
+          <div class="ring-desc">Shift-Left technique — flagging issues at design stage before a single line of code was written.</div>
+        </div>
+        <div class="mb-quality-card">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="54"/>
+            <circle class="ring-fill" cx="60" cy="60" r="54" data-pct="35"/>
+            <text x="60" y="55" text-anchor="middle" dominant-baseline="middle" class="ring-center-val">35%</text>
+            <text x="60" y="72" text-anchor="middle" class="ring-center-sub">faster</text>
+          </svg>
+          <div class="ring-lbl">Reduction in Avg Defect Age</div>
+          <div class="ring-desc">Structured triage, reproducibility standards, and severity discipline cut the time defects stayed open.</div>
+        </div>
+        <div class="mb-quality-card">
+          <svg class="ring-svg" viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="54"/>
+            <circle class="ring-fill ring-fill-special" cx="60" cy="60" r="54" data-pct="100"/>
+            <text x="60" y="50" text-anchor="middle" dominant-baseline="middle" class="ring-center-val" style="fill:#22c55e;font-size:1rem;">ZERO</text>
+            <text x="60" y="65" text-anchor="middle" class="ring-center-sub" style="fill:#22c55e;">escapes</text>
+            <text x="60" y="77" text-anchor="middle" class="ring-center-sub" style="fill:#22c55e;">to prod</text>
+          </svg>
+          <div class="ring-lbl">Production Escapes</div>
+          <div class="ring-desc" style="color:#22c55e;font-weight:500;">Zero critical defects reached production across 90+ sprints.</div>
+        </div>
+      </div>
+      <div class="mb-achieve">
+        <div class="mb-achieve-badge"><i class="fas fa-shield-alt"></i><span>Quality Gate Discipline</span></div>
+        <p>80+ defect triage and quality gate reviews conducted as sole QA lead — aligning Dev, Product, and stakeholders on every release decision with data-driven go/no-go reporting.</p>
+      </div>
+    </div>
+
+    <!-- ══ PROCESS ══ -->
+    <div class="mb-panel" id="tab-process">
+      <div class="mb-process-grid">
+        <div class="mb-proc-row">
+          <div class="mb-proc-top">
+            <span class="mb-proc-name"><i class="fas fa-search" style="color:var(--orange);margin-right:8px;"></i>Defects Prevented via Shift-Left Spec Reviews</span>
+            <span class="mb-proc-pct mb-count" data-target="40" data-suffix="%">0%</span>
+          </div>
+          <p class="mb-proc-sub">Reviewing 67+ tech specs before development flagged edge cases, testability gaps, and integration risks early — preventing an estimated 40% of defects from ever entering the codebase.</p>
+          <div class="mb-proc-track"><div class="mb-proc-fill" data-width="40"></div></div>
+        </div>
+        <div class="mb-proc-row">
+          <div class="mb-proc-top">
+            <span class="mb-proc-name"><i class="fas fa-clock" style="color:var(--orange);margin-right:8px;"></i>Reduction in Average Defect Age</span>
+            <span class="mb-proc-pct mb-count" data-target="35" data-suffix="%">0%</span>
+          </div>
+          <p class="mb-proc-sub">Structured triage governance — enforcing reproducibility standards, severity discipline, and clear Dev ownership — cut the average time defects remained open by 35%.</p>
+          <div class="mb-proc-track"><div class="mb-proc-fill" data-width="35"></div></div>
+        </div>
+        <div class="mb-proc-row">
+          <div class="mb-proc-top">
+            <span class="mb-proc-name"><i class="fas fa-users" style="color:var(--orange);margin-right:8px;"></i>Review Rework Reduced via QA Mentorship</span>
+            <span class="mb-proc-pct mb-count" data-target="25" data-suffix="%">0%</span>
+          </div>
+          <p class="mb-proc-sub">Mentoring and upskilling 3 senior QA engineers raised test design quality and defect-writing rigour, reducing the volume of work sent back for correction by 25%.</p>
+          <div class="mb-proc-track"><div class="mb-proc-fill" data-width="25"></div></div>
+        </div>
+        <div class="mb-proc-row">
+          <div class="mb-proc-top">
+            <span class="mb-proc-name"><i class="fas fa-tachometer-alt" style="color:var(--orange);margin-right:8px;"></i>Release Triage Meetings Led as Sole QA</span>
+            <span class="mb-proc-pct mb-count" data-target="80" data-suffix="+">0</span>
+          </div>
+          <p class="mb-proc-sub">Led 80+ defect triage and quality gate sessions — producing stakeholder-ready Jira &amp; Xray dashboards that directly informed go/no-go release decisions for enterprise products.</p>
+          <div class="mb-proc-track"><div class="mb-proc-fill" data-width="80"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ======================================
+       SECTION 8 — LEADERSHIP
+       ====================================== -->
+  <section id="leadership">
+    <div class="section-header">
+      <span class="section-tag">Leadership &amp; Validation</span>
+      <h2 class="section-title">Beyond the Test Cases</h2>
+      <p class="section-subtitle">Building quality cultures, leading teams, and earning industry recognition.</p>
+      <div class="glow-divider"></div>
+    </div>
+
+    <div class="leadership-grid">
+      <div class="card lead-card reveal">
+        <div class="lead-icon"><i class="fas fa-users"></i></div>
+        <h4>QA Mentorship</h4>
+        <p>Mentored and upskilled 3 senior QA engineers at IFS, raising test design quality, defect-writing rigour, and execution discipline — reducing review rework by 25%.</p>
+      </div>
+      <div class="card lead-card reveal">
+        <div class="lead-icon"><i class="fas fa-handshake"></i></div>
+        <h4>Stakeholder Management</h4>
+        <p>Produced stakeholder-ready release reports (coverage, defect trends, ageing, execution status) that directly informed go/no-go decisions for enterprise product releases at IFS.</p>
+      </div>
+      <div class="card lead-card reveal">
+        <div class="lead-icon"><i class="fas fa-flag-checkered"></i></div>
+        <h4>Quality Gate Ownership</h4>
+        <p>Led 80+ defect triage and quality gate review sessions as sole QA lead — aligning Dev, Product, and stakeholders on release priorities and systematically unblocking pipelines.</p>
+      </div>
+      <div class="card lead-card reveal">
+        <div class="lead-icon"><i class="fas fa-lightbulb"></i></div>
+        <h4>AI-Assisted QA Innovation</h4>
+        <p>Championed AI-assisted QA adoption (test design acceleration, regression optimisation, defect clustering, root-cause support) and partnered with Architecture &amp; R&amp;D to modernise QA ways of working across the organisation.</p>
+      </div>
+    </div>
+
+    <!-- Credentials -->
+    <div class="cred-row">
+      <div class="cred-badge"><i class="fas fa-certificate"></i><span>ISTQB CTAL-TM v3.0 &mdash; 2025</span></div>
+      <div class="cred-badge"><i class="fas fa-leaf"></i><span>Lean Six Sigma Green Belt &mdash; 2019</span></div>
+      <div class="cred-badge"><i class="fas fa-code"></i><span>Certificate of Software Automation &mdash; 2023</span></div>
+      <div class="cred-badge"><i class="fab fa-java"></i><span>Advance Diploma in JAVA &mdash; Uni of Kelaniya</span></div>
+      <div class="cred-badge"><i class="fas fa-university"></i><span>MBA in Entrepreneurship &mdash; Anglia Ruskin University</span></div>
+      <div class="cred-badge"><i class="fas fa-graduation-cap"></i><span>M.Sc. Computer Science &mdash; Uni of Sri Jayewardenepura</span></div>
+      <div class="cred-badge"><i class="fas fa-microchip"></i><span>B.Sc. Electronics &amp; Automation &mdash; Uni of Colombo</span></div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="testimonial-section">
+      <h3>Awards &amp; Community</h3>
+      <div class="testimonials-slider">
+
+        <div class="testimonial-slide active">
+          <div class="card testimonial-card">
+            <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="t-quote">Roshan consistently delivered on-time, high-confidence releases across 90+ agile sprints as our sole QA lead on the IFS PSO platform — a non-deterministic AI scheduling engine where most engineers wouldn't know where to begin with testing. His constraint-driven validation framework became our R&amp;D standard.</p>
+            <div class="t-name">IFS R&amp;D Engineering Team</div>
+            <div class="t-role">IFS R&amp;D International Pvt Ltd</div>
+          </div>
+        </div>
+
+        <div class="testimonial-slide">
+          <div class="card testimonial-card">
+            <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="t-quote">Roshan's Shift-Left approach transformed how our team thinks about quality. By reviewing specs before development even begins, he prevented an estimated 40% of defects from ever being written — saving us sprint cycles and release risk we didn't even know we were carrying.</p>
+            <div class="t-name">Product &amp; Dev Leadership</div>
+            <div class="t-role">IFS R&amp;D International Pvt Ltd</div>
+          </div>
+        </div>
+
+        <div class="testimonial-slide">
+          <div class="card testimonial-card">
+            <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="t-quote">What makes Roshan exceptional is his ownership mentality. He doesn't just execute test cases — he architects quality strategy, mentors the team, manages stakeholder expectations, and drives process improvements all at once. A rare combination of technical depth and communication skill.</p>
+            <div class="t-name">Senior Engineering Stakeholder</div>
+            <div class="t-role">IFS R&amp;D International Pvt Ltd</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="slider-dots">
+        <button class="dot active" onclick="goToSlide(0)"></button>
+        <button class="dot"        onclick="goToSlide(1)"></button>
+        <button class="dot"        onclick="goToSlide(2)"></button>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- ======== FOOTER / CONTACT ======== -->
+<footer>
+  <span class="section-tag">Get In Touch</span>
+  <h2>Let's Work Together</h2>
+  <p class="sub">Open to senior QA leadership roles, consulting engagements, and AI quality strategy projects &mdash; based in UAE, available globally.</p>
+  <a href="mailto:AhamedRoshanAli@gmail.com" class="email-link">AhamedRoshanAli@gmail.com</a>
+  <div class="social-links">
+    <a href="https://linkedin.com/in/ahamedroshanali" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <a href="mailto:AhamedRoshanAli@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+    <a href="tel:+971588223256" title="+971 58 822 3256"><i class="fas fa-phone"></i></a>
+    <a href="#" title="UAE"><i class="fas fa-map-marker-alt"></i></a>
+  </div>
+  <p style="color:var(--text-muted);font-size:0.85rem;margin-top:16px;">+971 58 822 3256 &nbsp;&bull;&nbsp; UAE</p>
+  <p class="copyright">&copy; 2025 Roshan Ali &mdash; Senior AI QA Engineer. All rights reserved.</p>
+</footer>
+
+<script>
+/* ===== STARFIELD ===== */
+(function () {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function initStars() {
+    stars = Array.from({ length: 220 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.4 + 0.2,
+      alpha: Math.random(),
+      speed: (Math.random() - 0.5) * 0.006
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.alpha += s.speed;
+      if (s.alpha > 1 || s.alpha < 0.05) s.speed *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${Math.max(0, Math.min(1, s.alpha))})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  initStars();
+  draw();
+  window.addEventListener('resize', () => { resize(); initStars(); });
+})();
+
+/* ===== ACTIVE NAV ON SCROLL ===== */
+(function () {
+  const links = document.querySelectorAll('nav a');
+  const ids   = [...links].map(l => l.getAttribute('href').slice(1));
+
+  function updateNav() {
+    let current = ids[0];
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 140) current = id;
+    });
+    links.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+})();
+
+/* ===== SCROLL REVEAL ===== */
+(function () {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+})();
+
+/* ===== METRICS BOARD ===== */
+(function () {
+  const CIRC = 2 * Math.PI * 54; // circumference for r=54
+
+  /* ── count-up ── */
+  function countUp(el) {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const dur = 1600;
+    const start = performance.now();
+    (function step(now) {
+      const p = Math.min((now - start) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    })(performance.now());
+  }
+
+  /* ── ring fill ── */
+  function fillRings(panel) {
+    panel.querySelectorAll('.ring-fill').forEach(circle => {
+      const pct = parseFloat(circle.dataset.pct) / 100;
+      const dash = pct * CIRC;
+      circle.style.strokeDasharray = dash + ' ' + (CIRC - dash);
+    });
+  }
+
+  /* ── bar fill ── */
+  function fillBars(panel) {
+    panel.querySelectorAll('.mb-bar-fill, .mb-proc-fill').forEach(bar => {
+      bar.style.width = bar.dataset.width + '%';
+    });
+  }
+
+  /* ── animate a panel ── */
+  function animatePanel(panel) {
+    panel.querySelectorAll('.mb-count').forEach(countUp);
+    setTimeout(() => fillRings(panel), 80);
+    setTimeout(() => fillBars(panel), 80);
+  }
+
+  /* ── tabs ── */
+  let booted = false;
+  document.querySelectorAll('.mb-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.mb-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.mb-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const panel = document.getElementById('tab-' + btn.dataset.tab);
+      panel.classList.add('active');
+      animatePanel(panel);
+    });
+  });
+
+  /* ── auto-trigger when section scrolls into view ── */
+  const section = document.getElementById('metrics');
+  if (section) {
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting && !booted) {
+        booted = true;
+        const active = section.querySelector('.mb-panel.active');
+        if (active) animatePanel(active);
+      }
+    }, { threshold: 0.25 }).observe(section);
+  }
+})();
+
+/* ===== TESTIMONIAL SLIDER ===== */
+let currentSlide = 0;
+
+function goToSlide(index) {
+  const slides = document.querySelectorAll('.testimonial-slide');
+  const dots   = document.querySelectorAll('.dot');
+  slides.forEach((s, i) => s.classList.toggle('active', i === index));
+  dots.forEach((d, i)   => d.classList.toggle('active', i === index));
+  currentSlide = index;
+}
+
+setInterval(() => {
+  const total = document.querySelectorAll('.testimonial-slide').length;
+  goToSlide((currentSlide + 1) % total);
+}, 5500);
+
+/* ===== TOOL CAROUSEL ===== */
+(function () {
+  const track = document.getElementById('carouselTrack');
+  document.getElementById('carouselNext').addEventListener('click', () => {
+    track.appendChild(track.firstElementChild);
+  });
+  document.getElementById('carouselPrev').addEventListener('click', () => {
+    track.insertBefore(track.lastElementChild, track.firstElementChild);
+  });
+})();
+
+/* ===== PROJECT ACCORDION ===== */
+function togglePA(header) {
+  const item = header.closest('.pa-item');
+  const isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.pa-item.open').forEach(el => el.classList.remove('open'));
+  // Open clicked if it was closed
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ===== PROJECT FILTER ===== */
+(function () {
+  document.querySelectorAll('.pf-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.pa-item').forEach(item => {
+        if (filter === 'all' || item.dataset.cat === filter) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+          item.classList.remove('open');
+        }
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
