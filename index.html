@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/png" href="avatar.png" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     /* ===== RESET & VARIABLES ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,6 +37,32 @@
       color: var(--text-primary);
       overflow-x: hidden;
     }
+    /* ===== GLOBAL LAYERED BACKGROUND (all sections) ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        /* subtle top radial glow */
+        radial-gradient(ellipse 70% 40% at 80% 10%, rgba(249,115,22,0.04) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 20% 90%, rgba(234,88,12,0.05) 0%, transparent 70%);
+    }
+    /* Faint SVG mountain curves repeated as a fixed bg texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.38;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='xMidYMax slice'%3E%3Cpath d='M0,700 C200,640 400,680 600,610 C800,540 1000,590 1200,520 C1340,470 1400,490 1440,485 L1440,900 L0,900Z' fill='rgba(30,10,2,0.5)'/%3E%3Cpath d='M0,780 C180,720 380,765 600,690 C820,615 1020,665 1240,595 C1360,555 1420,568 1440,565 L1440,900 L0,900Z' fill='rgba(50,18,4,0.55)'/%3E%3Cpath d='M0,850 C220,790 440,840 680,760 C920,680 1140,735 1380,660 L1440,900 L0,900Z' fill='rgba(72,26,5,0.6)'/%3E%3C/svg%3E");
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: bottom;
+    }
+    main { position: relative; z-index: 1; }
 
     /* ===== MOUNTAIN SCENE ===== */
     .mtn-scene {
@@ -54,7 +82,7 @@
     #bug-field {
       position: absolute;
       inset: 0;
-      z-index: 2;
+      z-index: 6;
       pointer-events: none;
       overflow: hidden;
     }
@@ -139,7 +167,6 @@
     }
 
     /* ===== LAYOUT ===== */
-    main { position: relative; z-index: 1; }
 
     section {
       min-height: 100vh;
@@ -337,33 +364,99 @@
     /* Avatar */
     .hero-avatar {
       position: absolute;
-      right: 7%;
+      right: 3%;
       top: 50%;
       transform: translateY(-50%);
       z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .hex-container {
-      width: 300px;
-      height: 300px;
+    .avatar-figure {
       position: relative;
-      animation: hexPulse 3s ease-in-out infinite;
+      width: 420px;
+      height: 520px;
+      animation: avatarFloat 4s ease-in-out infinite;
     }
-    @keyframes hexPulse {
-      0%,100% { filter: drop-shadow(0 0 20px rgba(249,115,22,0.4)); }
-      50%      { filter: drop-shadow(0 0 40px rgba(249,115,22,0.7)); }
+    @keyframes avatarFloat {
+      0%,100% { transform: translateY(0px); }
+      50%      { transform: translateY(-14px); }
     }
-    .hex-container svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .avatar-center {
+    /* Warm depth glow behind the character */
+    .avatar-figure::before {
+      content: '';
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 162px; height: 162px;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 68% 60% at 52% 42%, rgba(249,115,22,0.22) 0%, transparent 68%),
+        radial-gradient(ellipse 40% 35% at 30% 65%, rgba(249,115,22,0.10) 0%, transparent 60%);
+      z-index: 0;
+      animation: depthGlow 4s ease-in-out infinite;
+    }
+    @keyframes depthGlow {
+      0%,100% { opacity: 0.75; }
+      50%      { opacity: 1; }
+    }
+    .avatar-figure img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 10%;
+      /* Organic blob mask — irregular lumpy silhouette, all edges fade into dark bg */
+      -webkit-mask-image:
+        radial-gradient(ellipse 80% 88% at 50% 44%,
+          black 22%, rgba(0,0,0,0.92) 40%, rgba(0,0,0,0.6) 58%, rgba(0,0,0,0.18) 72%, transparent 84%),
+        radial-gradient(ellipse 55% 50% at 78% 18%,
+          rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 66%),
+        radial-gradient(ellipse 50% 44% at 20% 72%,
+          rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.28) 42%, transparent 62%),
+        radial-gradient(ellipse 46% 42% at 84% 76%,
+          rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.22) 40%, transparent 60%),
+        radial-gradient(ellipse 40% 36% at 14% 26%,
+          rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.24) 40%, transparent 58%),
+        radial-gradient(ellipse 36% 32% at 62% 88%,
+          rgba(0,0,0,0.52) 0%, transparent 55%);
+      -webkit-mask-composite: source-over, source-over, source-over, source-over, source-over;
+      mask-image:
+        radial-gradient(ellipse 80% 88% at 50% 44%,
+          black 22%, rgba(0,0,0,0.92) 40%, rgba(0,0,0,0.6) 58%, rgba(0,0,0,0.18) 72%, transparent 84%),
+        radial-gradient(ellipse 55% 50% at 78% 18%,
+          rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 66%),
+        radial-gradient(ellipse 50% 44% at 20% 72%,
+          rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.28) 42%, transparent 62%),
+        radial-gradient(ellipse 46% 42% at 84% 76%,
+          rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.22) 40%, transparent 60%),
+        radial-gradient(ellipse 40% 36% at 14% 26%,
+          rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.24) 40%, transparent 58%),
+        radial-gradient(ellipse 36% 32% at 62% 88%,
+          rgba(0,0,0,0.52) 0%, transparent 55%);
+      mask-composite: add, add, add, add, add;
+      filter:
+        drop-shadow(0 0 38px rgba(249,115,22,0.45))
+        drop-shadow(0 0 16px rgba(249,115,22,0.25))
+        drop-shadow(0 18px 48px rgba(0,0,0,0.7));
+    }
+    /* Ground glow beneath character */
+    .avatar-figure::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 36px;
+      background: radial-gradient(ellipse, rgba(249,115,22,0.65) 0%, transparent 70%);
       border-radius: 50%;
-      background: linear-gradient(145deg, #1a2540, #0c1322);
-      border: 3px solid var(--orange);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 78px;
-      box-shadow: 0 0 40px rgba(249,115,22,0.4), inset 0 0 20px rgba(249,115,22,0.05);
+      filter: blur(10px);
+      z-index: 2;
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100% { opacity: 0.65; transform: translateX(-50%) scaleX(1); }
+      50%      { opacity: 1;    transform: translateX(-50%) scaleX(1.2); }
     }
 
     /* Tool Carousel */
@@ -1158,6 +1251,18 @@
       transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
     }
 
+    /* ── Chart.js canvas wrappers ── */
+    .mb-chart-wrap {
+      margin-top: 36px;
+      background: rgba(12,19,34,0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px 28px;
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     @media (max-width: 900px) {
       .mb-overview { grid-template-columns: 1fr 1fr; }
       .mb-rings { grid-template-columns: 1fr 1fr; }
@@ -1381,41 +1486,10 @@
       </div>
     </div>
 
-    <!-- Hexagonal Avatar -->
+    <!-- Avatar — full character with glow base -->
     <div class="hero-avatar">
-      <div class="hex-container">
-        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#f97316"/>
-              <stop offset="100%" stop-color="#c2410c"/>
-            </linearGradient>
-            <filter id="gf"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-          <!-- Outer glow hex -->
-          <path d="M150 18 L262 81 L262 219 L150 282 L38 219 L38 81 Z"
-                fill="none" stroke="rgba(249,115,22,0.25)" stroke-width="1.5" filter="url(#gf)"/>
-          <!-- Main hex -->
-          <path d="M150 28 L252 87 L252 213 L150 272 L48 213 L48 87 Z"
-                fill="rgba(249,115,22,0.07)" stroke="url(#hg)" stroke-width="2"/>
-          <!-- Inner ring -->
-          <path d="M150 48 L232 96 L232 204 L150 252 L68 204 L68 96 Z"
-                fill="none" stroke="rgba(249,115,22,0.18)" stroke-width="1"/>
-          <!-- Dots at corners -->
-          <circle cx="150" cy="28"  r="4.5" fill="#f97316" filter="url(#gf)"/>
-          <circle cx="252" cy="87"  r="4.5" fill="#f97316" filter="url(#gf)"/>
-          <circle cx="252" cy="213" r="4.5" fill="#f97316" filter="url(#gf)"/>
-          <circle cx="150" cy="272" r="4.5" fill="#f97316" filter="url(#gf)"/>
-          <circle cx="48"  cy="213" r="4.5" fill="#f97316" filter="url(#gf)"/>
-          <circle cx="48"  cy="87"  r="4.5" fill="#f97316" filter="url(#gf)"/>
-          <!-- Orbit ring decoration -->
-          <ellipse cx="150" cy="150" rx="120" ry="28" fill="none"
-                   stroke="rgba(249,115,22,0.12)" stroke-width="1" stroke-dasharray="4 6"
-                   transform="rotate(-20,150,150)"/>
-          <!-- Play button accent -->
-          <polygon points="130,138 130,162 154,150" fill="rgba(249,115,22,0.6)"/>
-        </svg>
-        <div class="avatar-center">👨‍💻</div>
+      <div class="avatar-figure">
+        <img src="avatar.png" alt="Roshan Ali" />
       </div>
     </div>
 
@@ -2252,6 +2326,10 @@
           <div class="mb-bar-track"><div class="mb-bar-fill" data-width="67"></div></div>
         </div>
       </div>
+      <!-- Animated bar chart -->
+      <div class="mb-chart-wrap">
+        <canvas id="chartDelivery" height="90"></canvas>
+      </div>
     </div>
 
     <!-- ══ QUALITY ══ -->
@@ -2330,6 +2408,10 @@
           <p class="mb-proc-sub">Led 80+ defect triage and quality gate sessions — producing stakeholder-ready Jira &amp; Xray dashboards that directly informed go/no-go release decisions for enterprise products.</p>
           <div class="mb-proc-track"><div class="mb-proc-fill" data-width="80"></div></div>
         </div>
+      </div>
+      <!-- Animated radar chart -->
+      <div class="mb-chart-wrap">
+        <canvas id="chartProcess" height="90"></canvas>
       </div>
     </div>
 
@@ -2630,11 +2712,119 @@
     });
   }
 
+  /* ── Chart.js shared defaults ── */
+  const CHART_FONT = { family: 'Inter, sans-serif', size: 12 };
+  const ORANGE = '#f97316', ORANGE_DIM = 'rgba(249,115,22,0.18)';
+  const TEXT_MUT = '#64748b', TEXT_SEC = '#94a3b8';
+  let chartDelivery = null, chartProcess = null;
+
+  function buildDeliveryChart() {
+    if (chartDelivery) { chartDelivery.destroy(); chartDelivery = null; }
+    const ctx = document.getElementById('chartDelivery');
+    if (!ctx) return;
+    chartDelivery = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Sprints Delivered', 'Defects Closed', 'Test Cases', 'Specs Reviewed'],
+        datasets: [{
+          label: 'Actual',
+          data: [90, 1200, 2500, 67],
+          backgroundColor: [
+            'rgba(249,115,22,0.75)', 'rgba(234,88,12,0.75)',
+            'rgba(251,146,60,0.75)', 'rgba(194,65,12,0.75)'
+          ],
+          borderColor: ORANGE,
+          borderWidth: 1,
+          borderRadius: 6,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        animation: { duration: 1200, easing: 'easeOutQuart' },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(8,13,24,0.9)',
+            borderColor: ORANGE_DIM,
+            borderWidth: 1,
+            titleColor: ORANGE,
+            bodyColor: TEXT_SEC,
+            padding: 10,
+            callbacks: {
+              label: ctx => ' ' + ctx.parsed.y.toLocaleString() + (ctx.dataIndex === 0 ? '+ sprints' : ctx.dataIndex === 3 ? '+ specs' : '+')
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255,255,255,0.04)' },
+            ticks: { color: TEXT_SEC, font: CHART_FONT }
+          },
+          y: {
+            grid: { color: 'rgba(255,255,255,0.05)' },
+            ticks: { color: TEXT_MUT, font: CHART_FONT },
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+  function buildProcessChart() {
+    if (chartProcess) { chartProcess.destroy(); chartProcess = null; }
+    const ctx = document.getElementById('chartProcess');
+    if (!ctx) return;
+    chartProcess = new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Defect Prevention', 'Defect Age Reduction', 'Rework Reduction', 'Triage Sessions'],
+        datasets: [{
+          label: 'Process Score',
+          data: [40, 35, 25, 80],
+          backgroundColor: 'rgba(249,115,22,0.15)',
+          borderColor: ORANGE,
+          borderWidth: 2,
+          pointBackgroundColor: ORANGE,
+          pointBorderColor: '#fff',
+          pointRadius: 5,
+          pointHoverRadius: 7
+        }]
+      },
+      options: {
+        responsive: true,
+        animation: { duration: 1200, easing: 'easeOutQuart' },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(8,13,24,0.9)',
+            borderColor: ORANGE_DIM,
+            borderWidth: 1,
+            titleColor: ORANGE,
+            bodyColor: TEXT_SEC,
+            padding: 10
+          }
+        },
+        scales: {
+          r: {
+            min: 0, max: 100,
+            grid: { color: 'rgba(249,115,22,0.1)' },
+            angleLines: { color: 'rgba(249,115,22,0.12)' },
+            ticks: { display: false },
+            pointLabels: { color: TEXT_SEC, font: { ...CHART_FONT, size: 11 } }
+          }
+        }
+      }
+    });
+  }
+
   /* ── animate a panel ── */
   function animatePanel(panel) {
     panel.querySelectorAll('.mb-count').forEach(countUp);
     setTimeout(() => fillRings(panel), 80);
     setTimeout(() => fillBars(panel), 80);
+    if (panel.id === 'tab-delivery') setTimeout(buildDeliveryChart, 200);
+    if (panel.id === 'tab-process')  setTimeout(buildProcessChart,  200);
   }
 
   /* ── tabs ── */
