@@ -56,10 +56,10 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.38;
+      opacity: 0.62;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='xMidYMax slice'%3E%3Cpath d='M0,700 C200,640 400,680 600,610 C800,540 1000,590 1200,520 C1340,470 1400,490 1440,485 L1440,900 L0,900Z' fill='rgba(30,10,2,0.5)'/%3E%3Cpath d='M0,780 C180,720 380,765 600,690 C820,615 1020,665 1240,595 C1360,555 1420,568 1440,565 L1440,900 L0,900Z' fill='rgba(50,18,4,0.55)'/%3E%3Cpath d='M0,850 C220,790 440,840 680,760 C920,680 1140,735 1380,660 L1440,900 L0,900Z' fill='rgba(72,26,5,0.6)'/%3E%3C/svg%3E");
       background-size: cover;
-      background-attachment: fixed;
+      background-attachment: scroll;
       background-position: bottom;
     }
     main { position: relative; z-index: 1; }
@@ -104,11 +104,11 @@
       filter: drop-shadow(0 0 10px rgba(249,115,22,0.85)) brightness(1.25);
     }
     @keyframes bugDrift {
-      0%   { transform: translateY(0px)   rotate(var(--r0)); }
-      25%  { transform: translateY(-14px) rotate(var(--r1)); }
-      50%  { transform: translateY(-5px)  rotate(var(--r2)); }
-      75%  { transform: translateY(-20px) rotate(var(--r3)); }
-      100% { transform: translateY(0px)   rotate(var(--r0)); }
+      0%   { transform: translateY(0px); }
+      30%  { transform: translateY(-16px); }
+      60%  { transform: translateY(-6px); }
+      80%  { transform: translateY(-22px); }
+      100% { transform: translateY(0px); }
     }
     .bug.burst {
       animation: bugBurst 0.52s cubic-bezier(.22,.61,.36,1) forwards !important;
@@ -139,9 +139,9 @@
       z-index: 1000;
       display: flex;
       gap: 4px;
-      background: rgba(8,13,24,0.75);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: rgba(8,13,24,0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--border);
       border-radius: 50px;
       padding: 7px 12px;
@@ -250,7 +250,6 @@
       text-decoration: none;
       cursor: pointer;
       transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
     }
     .btn-outline:hover {
       border-color: var(--orange);
@@ -263,8 +262,6 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 20px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
     }
     .card:hover {
@@ -344,7 +341,7 @@
     }
     .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
 
-    .social-links { display: flex; gap: 12px; }
+    .social-links { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
     .social-links a {
       width: 40px; height: 40px;
       display: flex; align-items: center; justify-content: center;
@@ -355,6 +352,13 @@
       font-size: 15px;
       transition: all 0.25s;
     }
+    .social-loc {
+      width: auto !important;
+      border-radius: 20px !important;
+      padding: 0 13px !important;
+      gap: 6px;
+    }
+    .social-loc span { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; }
     .social-links a:hover {
       border-color: var(--orange);
       color: var(--orange);
@@ -374,8 +378,7 @@
     }
     .avatar-figure {
       position: relative;
-      width: 420px;
-      height: 520px;
+      width: 460px;
       animation: avatarFloat 4s ease-in-out infinite;
     }
     @keyframes avatarFloat {
@@ -388,9 +391,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 68% 60% at 52% 42%, rgba(249,115,22,0.22) 0%, transparent 68%),
-        radial-gradient(ellipse 40% 35% at 30% 65%, rgba(249,115,22,0.10) 0%, transparent 60%);
-      z-index: 0;
+        radial-gradient(ellipse 78% 70% at 52% 44%, rgba(249,115,22,0.55) 0%, rgba(249,115,22,0.2) 42%, transparent 68%),
+        radial-gradient(ellipse 50% 42% at 28% 70%, rgba(249,115,22,0.2)  0%, transparent 60%);
       animation: depthGlow 4s ease-in-out infinite;
     }
     @keyframes depthGlow {
@@ -398,46 +400,11 @@
       50%      { opacity: 1; }
     }
     .avatar-figure img {
-      position: relative;
-      z-index: 1;
       width: 100%;
-      height: 100%;
+      height: auto;
       display: block;
-      object-fit: cover;
-      object-position: center 10%;
-      /* Organic blob mask — irregular lumpy silhouette, all edges fade into dark bg */
-      -webkit-mask-image:
-        radial-gradient(ellipse 80% 88% at 50% 44%,
-          black 22%, rgba(0,0,0,0.92) 40%, rgba(0,0,0,0.6) 58%, rgba(0,0,0,0.18) 72%, transparent 84%),
-        radial-gradient(ellipse 55% 50% at 78% 18%,
-          rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 66%),
-        radial-gradient(ellipse 50% 44% at 20% 72%,
-          rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.28) 42%, transparent 62%),
-        radial-gradient(ellipse 46% 42% at 84% 76%,
-          rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.22) 40%, transparent 60%),
-        radial-gradient(ellipse 40% 36% at 14% 26%,
-          rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.24) 40%, transparent 58%),
-        radial-gradient(ellipse 36% 32% at 62% 88%,
-          rgba(0,0,0,0.52) 0%, transparent 55%);
-      -webkit-mask-composite: source-over, source-over, source-over, source-over, source-over;
-      mask-image:
-        radial-gradient(ellipse 80% 88% at 50% 44%,
-          black 22%, rgba(0,0,0,0.92) 40%, rgba(0,0,0,0.6) 58%, rgba(0,0,0,0.18) 72%, transparent 84%),
-        radial-gradient(ellipse 55% 50% at 78% 18%,
-          rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, transparent 66%),
-        radial-gradient(ellipse 50% 44% at 20% 72%,
-          rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.28) 42%, transparent 62%),
-        radial-gradient(ellipse 46% 42% at 84% 76%,
-          rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.22) 40%, transparent 60%),
-        radial-gradient(ellipse 40% 36% at 14% 26%,
-          rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.24) 40%, transparent 58%),
-        radial-gradient(ellipse 36% 32% at 62% 88%,
-          rgba(0,0,0,0.52) 0%, transparent 55%);
-      mask-composite: add, add, add, add, add;
-      filter:
-        drop-shadow(0 0 38px rgba(249,115,22,0.45))
-        drop-shadow(0 0 16px rgba(249,115,22,0.25))
-        drop-shadow(0 18px 48px rgba(0,0,0,0.7));
+      filter: drop-shadow(0 0 28px rgba(249,115,22,0.5))
+              drop-shadow(0 0 10px rgba(249,115,22,0.25));
     }
     /* Ground glow beneath character */
     .avatar-figure::after {
@@ -469,9 +436,9 @@
       width: min(780px, 94vw);
     }
     .tool-carousel {
-      background: rgba(8,13,24,0.82);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+      background: rgba(8,13,24,0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--border);
       border-radius: 50px;
       padding: 13px 0;
@@ -570,7 +537,7 @@
     .scroll-hint {
       position: absolute;
       bottom: 22px;
-      left: 6%;
+      right: 6%;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -601,7 +568,7 @@
     /* ===================================
        SECTION 2 — ABOUT
        =================================== */
-    #about { background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
+    #about { background: linear-gradient(180deg, rgba(8,13,24,0.90) 0%, rgba(12,19,34,0.92) 100%); }
 
     .about-layout {
       display: grid;
@@ -649,7 +616,7 @@
     /* ===================================
        SECTION 3 — SKILLS
        =================================== */
-    #skills { background: var(--bg-primary); }
+    #skills { background: rgba(8,13,24,0.90); }
 
     .skills-grid {
       display: grid;
@@ -680,7 +647,7 @@
     /* ===================================
        SECTION 4 — EXPERIENCE
        =================================== */
-    #experience { background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
+    #experience { background: linear-gradient(180deg, rgba(12,19,34,0.92) 0%, rgba(8,13,24,0.90) 100%); }
 
     .timeline {
       max-width: 880px;
@@ -728,9 +695,263 @@
     .t-tags { display: flex; flex-wrap: wrap; gap: 7px; }
 
     /* ===================================
+       SECTION 4b — EDUCATION
+       =================================== */
+    #education { background: linear-gradient(180deg, rgba(8,13,24,0.90) 0%, rgba(12,19,34,0.92) 100%); }
+
+    .edu-grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .edu-grid { grid-template-columns: 1fr; } }
+
+    .edu-column-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--orange);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(249,115,22,0.25);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .edu-column-title i { font-size: 0.95rem; }
+
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+      position: relative;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .edu-card:last-child { margin-bottom: 0; }
+    .edu-card:hover {
+      border-color: rgba(249,115,22,0.35);
+      box-shadow: 0 0 28px rgba(249,115,22,0.1);
+      transform: translateY(-3px);
+    }
+    .edu-card-accent {
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--orange), rgba(249,115,22,0.15));
+      border-radius: 16px 0 0 16px;
+    }
+    .edu-degree {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .edu-institution {
+      font-size: 0.82rem;
+      color: var(--orange);
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .edu-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+    .edu-meta i { font-size: 0.72rem; color: var(--orange); opacity: 0.7; }
+    .edu-badge-in-progress {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      color: var(--orange);
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 20px;
+      padding: 2px 10px;
+      margin-left: auto;
+    }
+    .edu-badge-in-progress::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: glowPulse 1.6s ease-in-out infinite;
+    }
+
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .cert-card:last-child { margin-bottom: 0; }
+    .cert-card:hover {
+      border-color: rgba(249,115,22,0.35);
+      box-shadow: 0 0 24px rgba(249,115,22,0.1);
+      transform: translateY(-3px);
+    }
+    .cert-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.22);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--orange);
+      font-size: 0.9rem;
+    }
+    .cert-body { flex: 1; min-width: 0; }
+    .cert-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+    .cert-issuer {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+    .cert-year {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--orange);
+      background: rgba(249,115,22,0.1);
+      border-radius: 20px;
+      padding: 2px 9px;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: 2px;
+    }
+
+    /* ===================================
+       SECTION 4c — DOMAINS
+       =================================== */
+    #domains { background: linear-gradient(180deg, rgba(12,19,34,0.92) 0%, rgba(8,13,24,0.90) 100%); }
+
+    .domains-intro {
+      max-width: 820px;
+      margin: 0 auto 48px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .domains-intro strong { color: var(--text-primary); }
+
+    .domains-list {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Accordion item */
+    .domain-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .domain-item.open {
+      border-color: rgba(249,115,22,0.4);
+      box-shadow: 0 0 32px rgba(249,115,22,0.08);
+    }
+
+    .domain-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .domain-header:hover { background: rgba(249,115,22,0.04); }
+
+    .domain-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    .domain-item.open .domain-icon {
+      background: rgba(249,115,22,0.2);
+    }
+
+    .domain-title {
+      flex: 1;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .domain-chevron {
+      color: var(--orange);
+      font-size: 0.85rem;
+      transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+      opacity: 0.7;
+    }
+    .domain-item.open .domain-chevron { transform: rotate(180deg); }
+
+    .domain-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    .domain-body-inner {
+      padding: 0 24px 24px 82px;
+    }
+    .domain-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .domain-customers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .domain-customer-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--orange);
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 20px;
+      padding: 3px 12px;
+    }
+    .domain-customer-tag i { font-size: 0.65rem; opacity: 0.7; }
+
+    /* ===================================
        SECTION 5 — PROJECTS
        =================================== */
-    #projects { background: var(--bg-primary); }
+    #projects { background: rgba(8,13,24,0.90); }
 
     .projects-grid {
       display: grid;
@@ -788,7 +1009,7 @@
     /* ===================================
        SECTION 6 — CASE STUDIES
        =================================== */
-    #case-studies { background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
+    #case-studies { background: linear-gradient(180deg, rgba(8,13,24,0.90) 0%, rgba(12,19,34,0.92) 100%); }
 
     .cases-grid {
       display: grid;
@@ -841,7 +1062,7 @@
     #metrics {
       min-height: unset;
       padding: 90px 6%;
-      background: var(--bg-secondary);
+      background: rgba(12,19,34,0.92);
     }
     .metrics-rail {
       display: grid;
@@ -881,7 +1102,7 @@
     /* ===================================
        SECTION 8 — LEADERSHIP
        =================================== */
-    #leadership { background: var(--bg-primary); }
+    #leadership { background: rgba(8,13,24,0.90); }
 
     .leadership-grid {
       display: grid;
@@ -916,7 +1137,6 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 50px;
-      backdrop-filter: blur(10px);
       transition: all 0.25s;
     }
     .cred-badge:hover { border-color: var(--border); }
@@ -970,7 +1190,7 @@
 
     /* ===== FOOTER / CONTACT ===== */
     footer {
-      background: var(--bg-secondary);
+      background: rgba(12,19,34,0.94);
       border-top: 1px solid var(--border-subtle);
       text-align: center;
       padding: 80px 6% 50px;
@@ -1002,29 +1222,98 @@
     #metrics {
       min-height: unset;
       padding: 90px 6%;
-      background: var(--bg-secondary);
+      background: rgba(12,19,34,0.92);
+      position: relative;
     }
+    #metrics::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(249,115,22,0.35), transparent);
+    }
+
+    /* Hero KPI banner */
+    .mb-hero {
+      display: flex;
+      max-width: 1080px;
+      margin: 0 auto 52px;
+      border: 1px solid rgba(249,115,22,0.22);
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(249,115,22,0.06) 0%, rgba(8,13,24,0.4) 100%);
+      box-shadow: 0 0 48px rgba(249,115,22,0.07), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .mb-hero-kpi {
+      flex: 1;
+      padding: 32px 20px 28px;
+      text-align: center;
+      border-right: 1px solid rgba(249,115,22,0.1);
+      position: relative;
+    }
+    .mb-hero-kpi:last-child { border-right: none; }
+    .mb-hero-kpi::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 60%; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(249,115,22,0.5), transparent);
+    }
+    .mb-hero-icon {
+      font-size: 1.1rem;
+      color: rgba(249,115,22,0.6);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .mb-hero-num {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .mb-hero-lbl {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      line-height: 1.4;
+    }
+    .mb-hero-kpi:last-child .mb-hero-num { color: #22c55e; }
+    .mb-hero-kpi:last-child .mb-hero-icon { color: rgba(34,197,94,0.7); }
 
     /* Tab strip */
     .mb-tabs {
-      display: flex; gap: 8px; justify-content: center;
-      flex-wrap: wrap; margin-bottom: 40px;
+      display: flex; gap: 6px; justify-content: center;
+      flex-wrap: wrap; margin-bottom: 44px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 40px;
+      padding: 6px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .mb-tab {
-      padding: 9px 22px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border-subtle);
+      padding: 9px 24px;
+      background: transparent;
+      border: 1px solid transparent;
       border-radius: 30px;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       font-size: 13px; font-weight: 500;
       cursor: pointer; transition: all 0.25s;
+      display: flex; align-items: center; gap: 7px;
     }
-    .mb-tab:hover { border-color: var(--border); color: var(--text-primary); }
+    .mb-tab i { font-size: 11px; }
+    .mb-tab:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); }
     .mb-tab.active {
-      background: rgba(249,115,22,0.12);
-      border-color: var(--orange);
+      background: rgba(249,115,22,0.14);
+      border-color: rgba(249,115,22,0.4);
       color: var(--orange);
-      box-shadow: 0 0 16px rgba(249,115,22,0.2);
+      box-shadow: 0 0 20px rgba(249,115,22,0.18), inset 0 1px 0 rgba(249,115,22,0.1);
     }
 
     /* Panel show/hide */
@@ -1044,15 +1333,26 @@
       border-radius: 18px;
       padding: 28px 20px 24px;
       text-align: center;
-      backdrop-filter: blur(12px);
       cursor: pointer;
       position: relative;
       transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      overflow: hidden;
     }
+    .mb-num-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 20%; right: 20%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(249,115,22,0.5), transparent);
+      border-radius: 0 0 2px 2px;
+      transition: opacity 0.25s;
+      opacity: 0.5;
+    }
+    .mb-num-card:hover::after { opacity: 1; }
     .mb-num-card:hover {
       border-color: rgba(249,115,22,0.45);
-      box-shadow: 0 0 28px rgba(249,115,22,0.15);
-      transform: translateY(-3px);
+      box-shadow: 0 0 32px rgba(249,115,22,0.15);
+      transform: translateY(-4px);
     }
     .mb-num-card .card-icon {
       font-size: 1.4rem; color: var(--orange);
@@ -1106,7 +1406,6 @@
       border-radius: 18px;
       padding: 28px 16px 22px;
       text-align: center;
-      backdrop-filter: blur(12px);
       transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
     }
     .mb-ring-card:hover {
@@ -1126,7 +1425,7 @@
       stroke-dasharray: 0 339;
       transition: stroke-dasharray 1.4s cubic-bezier(0.4,0,0.2,1);
     }
-    .ring-fill.special { stroke: #22c55e; }
+    .ring-fill.special, .ring-fill-special { stroke: #22c55e; }
     .ring-center-val {
       font-family: 'Playfair Display', serif;
       font-size: 1.3rem; font-weight: 900;
@@ -1144,24 +1443,26 @@
     /* Achievement strip */
     .mb-achieve {
       max-width: 1080px; margin: 0 auto;
-      background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(249,115,22,0.06));
-      border: 1px solid rgba(34,197,94,0.25);
-      border-radius: 16px;
-      padding: 18px 28px;
-      display: flex; align-items: center; gap: 16px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.07) 0%, rgba(8,13,24,0.3) 100%);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 18px;
+      padding: 22px 32px;
+      display: flex; align-items: center; gap: 20px;
       flex-wrap: wrap;
+      box-shadow: 0 0 36px rgba(34,197,94,0.06), inset 0 1px 0 rgba(34,197,94,0.08);
     }
     .mb-achieve-badge {
-      display: flex; align-items: center; gap: 8px;
+      display: flex; align-items: center; gap: 9px;
       background: rgba(34,197,94,0.12);
-      border: 1px solid rgba(34,197,94,0.3);
+      border: 1px solid rgba(34,197,94,0.35);
       border-radius: 30px;
-      padding: 6px 16px;
+      padding: 8px 18px;
       flex-shrink: 0;
+      box-shadow: 0 0 16px rgba(34,197,94,0.12);
     }
     .mb-achieve-badge i { color: #22c55e; font-size: 14px; }
-    .mb-achieve-badge span { color: #22c55e; font-weight: 700; font-size: 13px; }
-    .mb-achieve p { color: var(--text-secondary); font-size: 13.5px; line-height: 1.5; flex: 1; }
+    .mb-achieve-badge span { color: #22c55e; font-weight: 700; font-size: 13px; letter-spacing: 0.02em; }
+    .mb-achieve p { color: var(--text-secondary); font-size: 13.5px; line-height: 1.6; flex: 1; }
 
     /* ── Delivery panel ── */
     .mb-delivery-grid {
@@ -1175,7 +1476,6 @@
       border: 1px solid var(--border-subtle);
       border-radius: 18px;
       padding: 30px 28px;
-      backdrop-filter: blur(12px);
       transition: border-color 0.25s, box-shadow 0.25s;
     }
     .mb-bar-card:hover { border-color: rgba(249,115,22,0.35); box-shadow: 0 0 24px rgba(249,115,22,0.1); }
@@ -1212,7 +1512,6 @@
       border-radius: 20px;
       padding: 36px 24px;
       text-align: center;
-      backdrop-filter: blur(12px);
       transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
     }
     .mb-quality-card:hover {
@@ -1235,7 +1534,6 @@
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
       padding: 22px 28px;
-      backdrop-filter: blur(12px);
       transition: border-color 0.25s;
     }
     .mb-proc-row:hover { border-color: rgba(249,115,22,0.35); }
@@ -1253,15 +1551,28 @@
 
     /* ── Chart.js canvas wrappers ── */
     .mb-chart-wrap {
-      margin-top: 36px;
-      background: rgba(12,19,34,0.6);
+      margin-top: 32px;
+      background: linear-gradient(180deg, rgba(12,19,34,0.7) 0%, rgba(8,13,24,0.5) 100%);
       border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 24px 28px;
+      border-radius: 20px;
+      padding: 28px 32px 24px;
       max-width: 860px;
       margin-left: auto;
       margin-right: auto;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
     }
+    .mb-chart-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mb-chart-title i { color: var(--orange); font-size: 12px; }
 
     @media (max-width: 900px) {
       .mb-overview { grid-template-columns: 1fr 1fr; }
@@ -1302,7 +1613,6 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
-      backdrop-filter: blur(12px);
       overflow: hidden;
       transition: border-color 0.25s;
     }
@@ -1378,6 +1688,45 @@
       .pa-domain { display: none; }
     }
 
+    /* ===== MORE PROJECTS CTA ===== */
+    .more-projects-cta {
+      max-width: 1080px;
+      margin: 36px auto 0;
+    }
+    .more-projects-inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 28px 32px;
+      background: linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(12,19,34,0.5) 100%);
+      border: 1px solid rgba(249,115,22,0.28);
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(249,115,22,0.07), inset 0 1px 0 rgba(249,115,22,0.08);
+      flex-wrap: wrap;
+    }
+    .more-projects-icon {
+      font-size: 2rem;
+      color: var(--orange);
+      flex-shrink: 0;
+      width: 56px; height: 56px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 14px;
+    }
+    .more-projects-text { flex: 1; min-width: 200px; }
+    .more-projects-text h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--orange-light);
+      margin-bottom: 6px;
+    }
+    .more-projects-text p {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
     /* ===== SCROLL REVEAL ===== */
     .reveal {
       opacity: 0;
@@ -1419,6 +1768,8 @@
   <a href="#about">About</a>
   <a href="#skills">Skills</a>
   <a href="#experience">Experience</a>
+  <a href="#education">Education</a>
+  <a href="#domains">Domains</a>
   <a href="#projects">Projects</a>
   <a href="#case-studies">Case Studies</a>
   <a href="#metrics">Metrics</a>
@@ -1475,14 +1826,14 @@
       <h1 class="hero-name">Roshan Ali</h1>
       <p class="hero-title">Senior AI QA Engineer &nbsp;·&nbsp; ERP &amp; AI Platform QA &nbsp;·&nbsp; API &amp; Data &nbsp;·&nbsp; Agile Shift-Left QA</p>
       <div class="hero-buttons">
-        <a href="/Users/user/Downloads/Roshan_Ali_QA_Main.pdf" download class="btn-primary"><i class="fas fa-download"></i> Download CV</a>
+        <a href="Roshan_Ali_SEQA.pdf" download class="btn-primary"><i class="fas fa-download"></i> Download CV</a>
         <a href="#projects" class="btn-outline"><i class="fas fa-folder-open"></i> View Projects</a>
       </div>
       <div class="social-links">
         <a href="https://linkedin.com/in/ahamedroshanali" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         <a href="mailto:AhamedRoshanAli@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
         <a href="tel:+971588223256" title="Phone"><i class="fas fa-phone"></i></a>
-        <a href="#" title="UAE"><i class="fas fa-map-marker-alt"></i></a>
+        <a href="#" title="UAE" class="social-loc"><i class="fas fa-map-marker-alt"></i><span>UAE</span></a>
       </div>
     </div>
 
@@ -1820,6 +2171,286 @@
   </section>
 
   <!-- ======================================
+       SECTION 4b — EDUCATION & CERTIFICATIONS
+       ====================================== -->
+  <section id="education">
+    <div class="section-header">
+      <span class="section-tag">Academic Background</span>
+      <h2 class="section-title">Education &amp; Certifications</h2>
+      <p class="section-subtitle">Continuous learning across engineering, computer science, business, and quality assurance.</p>
+      <div class="glow-divider"></div>
+    </div>
+
+    <div class="edu-grid">
+
+      <!-- ── LEFT: EDUCATION ── -->
+      <div>
+        <div class="edu-column-title">
+          <i class="fas fa-graduation-cap"></i> Degrees
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-card-accent"></div>
+          <div class="edu-degree">Master of Business Administration in Entrepreneurship</div>
+          <div class="edu-institution">Anglia Ruskin University, Reading, UK</div>
+          <div class="edu-meta">
+            <i class="fas fa-calendar-alt"></i> Completion: May 2026
+            <span class="edu-badge-in-progress">In Progress</span>
+          </div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-card-accent"></div>
+          <div class="edu-degree">M.Sc. in Computer Science</div>
+          <div class="edu-institution">University of Sri Jayewardenepura</div>
+          <div class="edu-meta">
+            <i class="fas fa-calendar-alt"></i> Completion: Jun 2026
+            <span class="edu-badge-in-progress">In Progress</span>
+          </div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-card-accent"></div>
+          <div class="edu-degree">B.Sc. in Electronics and Automation Technologies</div>
+          <div class="edu-institution">University of Colombo</div>
+          <div class="edu-meta">
+            <i class="fas fa-calendar-alt"></i> 2018 – 2023
+          </div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-card-accent"></div>
+          <div class="edu-degree">Bachelor of Engineering Technology</div>
+          <div class="edu-institution">University of Kelaniya</div>
+          <div class="edu-meta">
+            <i class="fas fa-calendar-alt"></i> 2018 – 2022
+          </div>
+        </div>
+      </div>
+
+      <!-- ── RIGHT: CERTIFICATIONS ── -->
+      <div>
+        <div class="edu-column-title">
+          <i class="fas fa-certificate"></i> Certifications
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-icon"><i class="fas fa-award"></i></div>
+          <div class="cert-body">
+            <div class="cert-name">ISTQB Certified Tester Advanced Level — Test Manager (CTAL-TM) v3.0</div>
+            <div class="cert-issuer">ISTQB</div>
+          </div>
+          <div class="cert-year">2025</div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-icon"><i class="fas fa-chart-line"></i></div>
+          <div class="cert-body">
+            <div class="cert-name">Lean Six Sigma Green Belt</div>
+            <div class="cert-issuer">The Corporate Campus</div>
+          </div>
+          <div class="cert-year">2019</div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-icon"><i class="fas fa-robot"></i></div>
+          <div class="cert-body">
+            <div class="cert-name">Certificate of Software Automation</div>
+            <div class="cert-issuer">Imperial College of IT &amp; Business</div>
+          </div>
+          <div class="cert-year">2023</div>
+        </div>
+
+        <div class="cert-card">
+          <div class="cert-icon"><i class="fab fa-java"></i></div>
+          <div class="cert-body">
+            <div class="cert-name">Advance Diploma in JAVA</div>
+            <div class="cert-issuer">University of Kelaniya</div>
+          </div>
+          <div class="cert-year">2018–2019</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================
+       SECTION 4c — DOMAINS
+       ====================================== -->
+  <section id="domains">
+    <div class="section-header">
+      <span class="section-tag">Industry Coverage</span>
+      <h2 class="section-title">Domains Worked</h2>
+      <p class="section-subtitle">Enterprise-scale delivery across asset-intensive, service-driven, and regulated industries worldwide.</p>
+      <div class="glow-divider"></div>
+    </div>
+
+    <p class="domains-intro">
+      Worked across enterprise solutions serving major industrial and service-heavy sectors including
+      <strong>Aerospace &amp; Defense, Energy, Utilities &amp; Resources, Construction &amp; Engineering,
+      Manufacturing, Service Industries,</strong> and <strong>Telecommunications</strong>. The work touched
+      business areas such as project and program delivery, asset lifecycle control, maintenance and MRO,
+      field service, workforce planning, scheduling and dispatch, supply chain coordination,
+      compliance-heavy operations, and large-scale operational efficiency.
+    </p>
+
+    <div class="domains-list">
+
+      <!-- Aerospace & Defense -->
+      <div class="domain-item" data-domain>
+        <div class="domain-header" onclick="toggleDomain(this)">
+          <div class="domain-icon"><i class="fas fa-jet-fighter"></i></div>
+          <div class="domain-title">Aerospace &amp; Defense</div>
+          <i class="fas fa-chevron-down domain-chevron"></i>
+        </div>
+        <div class="domain-body">
+          <div class="domain-body-inner">
+            <p class="domain-desc">
+              Highly regulated, mission-critical environments where the platform supports engineering, manufacturing,
+              maintenance, support, availability, sustainment, and end-of-life control across aircraft, defense assets,
+              and related operations. Extends into A&amp;D manufacturing, MRO providers, airlines/air operators,
+              defense contractors, and defense forces.
+            </p>
+            <div class="domain-customers">
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> China Airlines</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Ensign-Bickford Aerospace &amp; Defense</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Wahaj</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Collins Aerospace</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Energy, Utilities & Resources -->
+      <div class="domain-item" data-domain>
+        <div class="domain-header" onclick="toggleDomain(this)">
+          <div class="domain-icon"><i class="fas fa-bolt"></i></div>
+          <div class="domain-title">Energy, Utilities &amp; Resources</div>
+          <i class="fas fa-chevron-down domain-chevron"></i>
+        </div>
+        <div class="domain-body">
+          <div class="domain-body-inner">
+            <p class="domain-desc">
+              Operations requiring strong control over assets, maintenance, service response, sustainability, uptime,
+              and field execution. Spans utility operations, water and wastewater, transmission and distribution,
+              power generation, and oil and gas. Focus on improving reliability, reducing downtime, optimizing
+              maintenance, and supporting digital transformation in asset-intensive environments.
+            </p>
+            <div class="domain-customers">
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Interwell</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Borr Drilling</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Noble Corporation</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Elvia</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Tampa Electric</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Construction & Engineering -->
+      <div class="domain-item" data-domain>
+        <div class="domain-header" onclick="toggleDomain(this)">
+          <div class="domain-icon"><i class="fas fa-helmet-safety"></i></div>
+          <div class="domain-title">Construction &amp; Engineering</div>
+          <i class="fas fa-chevron-down domain-chevron"></i>
+        </div>
+        <div class="domain-body">
+          <div class="domain-body-inner">
+            <p class="domain-desc">
+              Project-driven businesses where success depends on strong planning, execution, procurement, cost control,
+              subcontract management, resource efficiency, and end-to-end project lifecycle visibility. Branches into
+              specialist engineering and shipbuilding/maritime operations.
+            </p>
+            <div class="domain-customers">
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Berkeley Group</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Multiplex</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Heerema Fabrication Group</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Babcock</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> China CAMC Engineering</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manufacturing -->
+      <div class="domain-item" data-domain>
+        <div class="domain-header" onclick="toggleDomain(this)">
+          <div class="domain-icon"><i class="fas fa-industry"></i></div>
+          <div class="domain-title">Manufacturing</div>
+          <i class="fas fa-chevron-down domain-chevron"></i>
+        </div>
+        <div class="domain-body">
+          <div class="domain-body-inner">
+            <p class="domain-desc">
+              Industrial manufacturing, high-tech manufacturing, automotive, chemicals, and life sciences.
+              Work aligned with production control, supply chain integration, quality, smart manufacturing,
+              service operations, and profitability improvement in complex manufacturing environments.
+            </p>
+            <div class="domain-customers">
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Wahaj</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Habia Cable</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Jotun</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Kitron</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Bosch</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> TOMRA</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Farrow &amp; Ball</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service Industries -->
+      <div class="domain-item" data-domain>
+        <div class="domain-header" onclick="toggleDomain(this)">
+          <div class="domain-icon"><i class="fas fa-handshake"></i></div>
+          <div class="domain-title">Service Industries</div>
+          <i class="fas fa-chevron-down domain-chevron"></i>
+        </div>
+        <div class="domain-body">
+          <div class="domain-body-inner">
+            <p class="domain-desc">
+              Organizations focused on service delivery, customer experience, enterprise service management,
+              field operations, and operational responsiveness. Includes consumer service organizations,
+              internal service operations, and public-sector-style service environments.
+            </p>
+            <div class="domain-customers">
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Electrolux</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Culligan Middle East</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Dubai Courts</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Ministry of Media</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> RCJY</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Anticimex</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Telecommunications -->
+      <div class="domain-item" data-domain>
+        <div class="domain-header" onclick="toggleDomain(this)">
+          <div class="domain-icon"><i class="fas fa-tower-broadcast"></i></div>
+          <div class="domain-title">Telecommunications</div>
+          <i class="fas fa-chevron-down domain-chevron"></i>
+        </div>
+        <div class="domain-body">
+          <div class="domain-body-inner">
+            <p class="domain-desc">
+              Workforce efficiency, infrastructure modernization, customer experience, field service productivity,
+              ERP-led operational control, and support for evolving telecom business models such as 5G expansion
+              and adjacent services. Relevant to cable and telecom-adjacent manufacturing operations.
+            </p>
+            <div class="domain-customers">
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> British Sky Broadcasting (BSkyB)</span>
+              <span class="domain-customer-tag"><i class="fas fa-building"></i> Habia Cable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================
        SECTION 5 — PROJECTS
        ====================================== -->
   <section id="projects">
@@ -2116,6 +2747,19 @@
       </div>
 
     </div>
+
+    <!-- More projects CTA -->
+    <div class="more-projects-cta reveal">
+      <div class="more-projects-inner">
+        <div class="more-projects-icon"><i class="fas fa-folder-open"></i></div>
+        <div class="more-projects-text">
+          <h4>67 More Projects Available</h4>
+          <p>The above 25 represent a curated selection. Roshan has led QA across 67+ projects spanning ERP modules, AI scheduling features, API integrations, and enterprise platform enhancements at IFS R&amp;D. Get in touch to explore the full portfolio.</p>
+        </div>
+        <a href="mailto:AhamedRoshanAli@gmail.com" class="btn-primary" style="white-space:nowrap;flex-shrink:0;"><i class="fas fa-envelope"></i> Get in Touch</a>
+      </div>
+    </div>
+
   </section>
 
   <!-- ======================================
@@ -2184,6 +2828,60 @@
         <div class="case-impact"><p><i class="fas fa-chart-line" style="margin-right:7px;"></i>Average defect age cut by 35%. Go/no-go decisions became data-driven. Release pipeline unblocked and on-time delivery sustained across 90+ sprints.</p></div>
       </div>
 
+      <div class="card case-card reveal">
+        <div class="case-num">04</div>
+        <div class="case-title">Flaky AI Test Results Masking Real Solver Regressions</div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-exclamation"></i></div>
+          <div class="case-step-body"><h5>Problem</h5><p>Test results for the PSO solver were showing pass/fail inconsistency — the team was dismissing real regressions as "just flakiness." Confidence in the suite eroded to the point where failures were routinely ignored, creating invisible risk in every release.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-microscope"></i></div>
+          <div class="case-step-body"><h5>Investigation</h5><p>Analysed 90 days of test run history. Identified two root causes: timing-dependent race conditions in asynchronous solver callback chains, and non-convergent solver states triggered by specific load parameter combinations that the suite wasn't designed to detect.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-wrench"></i></div>
+          <div class="case-step-body"><h5>Resolution</h5><p>Separated deterministic from non-deterministic assertions. Introduced statistical confidence intervals for output validation. Added async timeout and retry logic with correct final-state assertions. Rebuilt flaky tests as stable invariant-based checks.</p></div>
+        </div>
+        <div class="case-impact"><p><i class="fas fa-check-double" style="margin-right:7px;"></i>Flake rate reduced from 23% to under 2%. Genuine regressions now reliably surfaced. Team confidence in the test suite fully restored.</p></div>
+      </div>
+
+      <div class="card case-card reveal">
+        <div class="case-num">05</div>
+        <div class="case-title">Cross-Tenant Data Leakage via Unscoped API Endpoints in Multi-Tenant ERP</div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-exclamation"></i></div>
+          <div class="case-step-body"><h5>Problem</h5><p>New scheduling API endpoints in the IFS multi-tenant architecture were inconsistently enforcing tenant isolation. Under certain HTTP method and payload combinations, data from one tenant's scheduling context was leaking into another — an invisible, intermittent security defect with no visible UI symptom.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-microscope"></i></div>
+          <div class="case-step-body"><h5>Investigation</h5><p>Built a systematic Postman collection with cross-tenant session tokens and boundary-crossing request patterns. Executed requests across tenant contexts using parameterised variables for tenant scope. Discovered 3 endpoints lacking tenant scope validation in specific method/header combinations — bypassing the expected isolation middleware.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-wrench"></i></div>
+          <div class="case-step-body"><h5>Resolution</h5><p>Documented the vulnerability pattern and shared it with the Dev and Architecture teams. Collaborated to implement server-side tenant scope enforcement middleware. Created a dedicated security contract test suite covering tenant boundary enforcement — added as a mandatory gate for all new API endpoint sign-offs.</p></div>
+        </div>
+        <div class="case-impact"><p><i class="fas fa-shield-alt" style="margin-right:7px;"></i>Zero cross-tenant data exposure in production. Security contract suite adopted as a standard gate — catching similar risks across 3 subsequent feature releases before they reached staging.</p></div>
+      </div>
+
+      <div class="card case-card reveal">
+        <div class="case-num">06</div>
+        <div class="case-title">Regression Coverage Collapse from Uncontrolled Test Suite Sprawl</div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-exclamation"></i></div>
+          <div class="case-step-body"><h5>Problem</h5><p>As the IFS PSO platform grew, the regression suite ballooned to 800+ test cases with 10+ hour execution cycles. Under sprint time pressure, large chunks were being silently skipped. Coverage became fragmented and untracked — the team had no visibility into what was actually being validated each release.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-microscope"></i></div>
+          <div class="case-step-body"><h5>Investigation</h5><p>Mapped historical defect data against the test suite to identify coverage hot spots. Found that 70%+ of production-bound defects traced back to 18% of the test cases — concentrated in the core solver, constraint engine, and data integration layers. The majority of the suite was validating low-risk stable features that rarely changed.</p></div>
+        </div>
+        <div class="case-step">
+          <div class="case-step-dot"><i class="fas fa-wrench"></i></div>
+          <div class="case-step-body"><h5>Resolution</h5><p>Implemented risk-based test prioritisation using defect heat maps and change-impact analysis. Restructured regression into three tiers: a 90-minute critical-path suite for every sprint, a 4-hour extended suite for major features, and a full overnight run pre-release. Documented coverage tiers in Xray for full stakeholder transparency.</p></div>
+        </div>
+        <div class="case-impact"><p><i class="fas fa-bolt" style="margin-right:7px;"></i>Critical regression cycle cut from 10+ hours to 90 minutes. Full coverage maintained across all tiers. Zero high-severity regressions escaped from the prioritised suite across subsequent releases.</p></div>
+      </div>
+
     </div>
   </section>
 
@@ -2193,17 +2891,41 @@
   <section id="metrics">
     <div class="section-header">
       <span class="section-tag">QA Metrics</span>
-      <h2 class="section-title">Interactive Impact Dashboard</h2>
+      <h2 class="section-title">Metrics Dashboard</h2>
       <p class="section-subtitle">Real numbers from 3+ years of quality ownership at IFS R&amp;D.</p>
       <div class="glow-divider"></div>
     </div>
 
+    <!-- Hero KPI Banner -->
+    <div class="mb-hero">
+      <div class="mb-hero-kpi">
+        <span class="mb-hero-icon"><i class="fas fa-rocket"></i></span>
+        <span class="mb-hero-num">90+</span>
+        <div class="mb-hero-lbl">Agile Sprints<br>Delivered</div>
+      </div>
+      <div class="mb-hero-kpi">
+        <span class="mb-hero-icon"><i class="fas fa-bug"></i></span>
+        <span class="mb-hero-num">1,200+</span>
+        <div class="mb-hero-lbl">Defects<br>Governed</div>
+      </div>
+      <div class="mb-hero-kpi">
+        <span class="mb-hero-icon"><i class="fas fa-flask"></i></span>
+        <span class="mb-hero-num">2,500+</span>
+        <div class="mb-hero-lbl">Test Cases<br>Executed</div>
+      </div>
+      <div class="mb-hero-kpi">
+        <span class="mb-hero-icon"><i class="fas fa-shield-alt"></i></span>
+        <span class="mb-hero-num">ZERO</span>
+        <div class="mb-hero-lbl">Production<br>Escapes</div>
+      </div>
+    </div>
+
     <!-- Tab strip -->
     <div class="mb-tabs">
-      <button class="mb-tab active" data-tab="overview">Overview</button>
-      <button class="mb-tab" data-tab="delivery">Delivery Stats</button>
-      <button class="mb-tab" data-tab="quality">Quality Impact</button>
-      <button class="mb-tab" data-tab="process">Process Gains</button>
+      <button class="mb-tab active" data-tab="overview"><i class="fas fa-chart-pie"></i>Overview</button>
+      <button class="mb-tab" data-tab="delivery"><i class="fas fa-chart-bar"></i>Delivery</button>
+      <button class="mb-tab" data-tab="quality"><i class="fas fa-shield-alt"></i>Quality</button>
+      <button class="mb-tab" data-tab="process"><i class="fas fa-cogs"></i>Process</button>
     </div>
 
     <!-- SVG gradient def (shared) -->
@@ -2328,6 +3050,7 @@
       </div>
       <!-- Animated bar chart -->
       <div class="mb-chart-wrap">
+        <div class="mb-chart-title"><i class="fas fa-chart-bar"></i>Delivery Volume — Year-over-Year</div>
         <canvas id="chartDelivery" height="90"></canvas>
       </div>
     </div>
@@ -2371,6 +3094,10 @@
         <div class="mb-achieve-badge"><i class="fas fa-shield-alt"></i><span>Quality Gate Discipline</span></div>
         <p>80+ defect triage and quality gate reviews conducted as sole QA lead — aligning Dev, Product, and stakeholders on every release decision with data-driven go/no-go reporting.</p>
       </div>
+      <div class="mb-chart-wrap">
+        <div class="mb-chart-title"><i class="fas fa-chart-line"></i>Quality Impact Breakdown</div>
+        <canvas id="chartQuality" height="80"></canvas>
+      </div>
     </div>
 
     <!-- ══ PROCESS ══ -->
@@ -2411,6 +3138,7 @@
       </div>
       <!-- Animated radar chart -->
       <div class="mb-chart-wrap">
+        <div class="mb-chart-title"><i class="fas fa-spider"></i>Process Maturity Radar</div>
         <canvas id="chartProcess" height="90"></canvas>
       </div>
     </div>
@@ -2449,17 +3177,6 @@
         <h4>AI-Assisted QA Innovation</h4>
         <p>Championed AI-assisted QA adoption (test design acceleration, regression optimisation, defect clustering, root-cause support) and partnered with Architecture &amp; R&amp;D to modernise QA ways of working across the organisation.</p>
       </div>
-    </div>
-
-    <!-- Credentials -->
-    <div class="cred-row">
-      <div class="cred-badge"><i class="fas fa-certificate"></i><span>ISTQB CTAL-TM v3.0 &mdash; 2025</span></div>
-      <div class="cred-badge"><i class="fas fa-leaf"></i><span>Lean Six Sigma Green Belt &mdash; 2019</span></div>
-      <div class="cred-badge"><i class="fas fa-code"></i><span>Certificate of Software Automation &mdash; 2023</span></div>
-      <div class="cred-badge"><i class="fab fa-java"></i><span>Advance Diploma in JAVA &mdash; Uni of Kelaniya</span></div>
-      <div class="cred-badge"><i class="fas fa-university"></i><span>MBA in Entrepreneurship &mdash; Anglia Ruskin University</span></div>
-      <div class="cred-badge"><i class="fas fa-graduation-cap"></i><span>M.Sc. Computer Science &mdash; Uni of Sri Jayewardenepura</span></div>
-      <div class="cred-badge"><i class="fas fa-microchip"></i><span>B.Sc. Electronics &amp; Automation &mdash; Uni of Colombo</span></div>
     </div>
 
     <!-- Testimonials -->
@@ -2518,7 +3235,6 @@
     <a href="tel:+971588223256" title="+971 58 822 3256"><i class="fas fa-phone"></i></a>
     <a href="#" title="UAE"><i class="fas fa-map-marker-alt"></i></a>
   </div>
-  <p style="color:var(--text-muted);font-size:0.85rem;margin-top:16px;">+971 58 822 3256 &nbsp;&bull;&nbsp; UAE</p>
   <p class="copyright">&copy; 2025 Roshan Ali &mdash; Senior AI QA Engineer. All rights reserved.</p>
 </footer>
 
@@ -2569,13 +3285,8 @@
       `top:${rand(4,84)}%`,
       `font-size:${sz}px`,
       `color:rgba(40,${g},90,${al})`,
-      `filter:drop-shadow(0 0 3px rgba(40,${g},90,0.4))`,
       `animation-duration:${dur}s`,
-      `animation-delay:-${rand(0,dur)}s`,
-      `--r0:${rand(-40,40)}deg`,
-      `--r1:${rand(-80,80)}deg`,
-      `--r2:${rand(-60,60)}deg`,
-      `--r3:${rand(-90,90)}deg`
+      `animation-delay:-${rand(0,dur)}s`
     ].join(';');
     el.innerHTML = '<i class="fas fa-spider"></i>';
     field.appendChild(el);
@@ -2590,13 +3301,8 @@
     el.style.cssText = [
       `left:${rand(2,88)}%`,
       `top:${rand(4,82)}%`,
-      `filter:drop-shadow(0 0 5px rgba(249,115,22,0.45))`,
       `animation-duration:${dur}s`,
-      `animation-delay:-${rand(0,dur)}s`,
-      `--r0:${rand(-25,25)}deg`,
-      `--r1:${rand(-50,50)}deg`,
-      `--r2:${rand(-35,35)}deg`,
-      `--r3:${rand(-60,60)}deg`
+      `animation-delay:-${rand(0,dur)}s`
     ].join(';');
     el.innerHTML = ladybugSVG(sz);
     el.addEventListener('click', () => burstLadybug(el));
@@ -2635,14 +3341,33 @@
     bug.classList.add('burst');
     bug.addEventListener('animationend', () => {
       bug.remove();
-      setTimeout(spawnLadybug, rand(700, 2000));
+      setTimeout(spawnLadybug, rand(2500, 5000));
     }, { once: true });
   }
 
   /* ── INIT ── */
-  for (let i = 0; i < 9;  i++) spawnSpider();
-  for (let i = 0; i < 7;  i++) spawnLadybug();
+  for (let i = 0; i < 6;  i++) spawnSpider();
+  for (let i = 0; i < 5;  i++) spawnLadybug();
 })();
+
+/* ===== DOMAIN ACCORDION ===== */
+function toggleDomain(header) {
+  const item = header.parentElement;
+  const body = item.querySelector('.domain-body');
+  const isOpen = item.classList.contains('open');
+
+  // Close all open items
+  document.querySelectorAll('.domain-item.open').forEach(el => {
+    el.classList.remove('open');
+    el.querySelector('.domain-body').style.maxHeight = '0';
+  });
+
+  // Open clicked item if it was closed
+  if (!isOpen) {
+    item.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
 
 /* ===== ACTIVE NAV ON SCROLL ===== */
 (function () {
@@ -2716,7 +3441,7 @@
   const CHART_FONT = { family: 'Inter, sans-serif', size: 12 };
   const ORANGE = '#f97316', ORANGE_DIM = 'rgba(249,115,22,0.18)';
   const TEXT_MUT = '#64748b', TEXT_SEC = '#94a3b8';
-  let chartDelivery = null, chartProcess = null;
+  let chartDelivery = null, chartProcess = null, chartQuality = null;
 
   function buildDeliveryChart() {
     if (chartDelivery) { chartDelivery.destroy(); chartDelivery = null; }
@@ -2765,6 +3490,60 @@
             grid: { color: 'rgba(255,255,255,0.05)' },
             ticks: { color: TEXT_MUT, font: CHART_FONT },
             beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+  function buildQualityChart() {
+    if (chartQuality) { chartQuality.destroy(); chartQuality = null; }
+    const ctx = document.getElementById('chartQuality');
+    if (!ctx) return;
+    chartQuality = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Defects Prevented\n(Shift-Left)', 'Defect Age\nReduction', 'Rework\nReduced', 'Triage Sessions\nLed'],
+        datasets: [{
+          label: 'Score',
+          data: [40, 35, 25, 80],
+          backgroundColor: [
+            'rgba(249,115,22,0.7)', 'rgba(234,88,12,0.7)',
+            'rgba(251,146,60,0.65)', 'rgba(34,197,94,0.7)'
+          ],
+          borderColor: ['rgba(249,115,22,1)', 'rgba(234,88,12,1)', 'rgba(251,146,60,1)', 'rgba(34,197,94,1)'],
+          borderWidth: 1,
+          borderRadius: 8,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        animation: { duration: 1200, easing: 'easeOutQuart' },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(8,13,24,0.9)',
+            borderColor: ORANGE_DIM,
+            borderWidth: 1,
+            titleColor: ORANGE,
+            bodyColor: TEXT_SEC,
+            padding: 10,
+            callbacks: {
+              label: ctx => ' ' + ctx.parsed.x + (ctx.dataIndex === 3 ? '+ sessions' : '% improvement')
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255,255,255,0.04)' },
+            ticks: { color: TEXT_MUT, font: CHART_FONT },
+            max: 100, beginAtZero: true
+          },
+          y: {
+            grid: { display: false },
+            ticks: { color: TEXT_SEC, font: { ...CHART_FONT, size: 11 } }
           }
         }
       }
@@ -2824,6 +3603,7 @@
     setTimeout(() => fillRings(panel), 80);
     setTimeout(() => fillBars(panel), 80);
     if (panel.id === 'tab-delivery') setTimeout(buildDeliveryChart, 200);
+    if (panel.id === 'tab-quality')  setTimeout(buildQualityChart,  200);
     if (panel.id === 'tab-process')  setTimeout(buildProcessChart,  200);
   }
 
