@@ -7,9 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha384-/o6I2CkkWC//PSjvWC/eYN7l3xM3tJm8ZzVkCOfp//W05QcE3mlGskpoHB6XqI+B"
+        crossorigin="anonymous" />
   <link rel="icon" type="image/png" href="avatar.png" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"
+          integrity="sha384-e6nUZLBkQ86NJ6TVVKAeSaK8jWa3NhkYWZFomE39AvDbQWeie9PlQqM3pmYW5d1g"
+          crossorigin="anonymous"></script>
   <style>
     /* ===== RESET & VARIABLES ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,9 +49,9 @@
       z-index: 0;
       pointer-events: none;
       background:
-        /* subtle top radial glow */
-        radial-gradient(ellipse 70% 40% at 80% 10%, rgba(249,115,22,0.04) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 50% at 20% 90%, rgba(234,88,12,0.05) 0%, transparent 70%);
+        radial-gradient(ellipse 80% 55% at 82% 7%,  rgba(249,115,22,0.14) 0%, transparent 68%),
+        radial-gradient(ellipse 65% 45% at 16% 42%, rgba(234,88,12,0.09) 0%, transparent 65%),
+        radial-gradient(ellipse 75% 55% at 20% 94%, rgba(234,88,12,0.12) 0%, transparent 68%);
     }
     /* Faint SVG mountain curves repeated as a fixed bg texture */
     body::after {
@@ -56,11 +60,9 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.62;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='xMidYMax slice'%3E%3Cpath d='M0,700 C200,640 400,680 600,610 C800,540 1000,590 1200,520 C1340,470 1400,490 1440,485 L1440,900 L0,900Z' fill='rgba(30,10,2,0.5)'/%3E%3Cpath d='M0,780 C180,720 380,765 600,690 C820,615 1020,665 1240,595 C1360,555 1420,568 1440,565 L1440,900 L0,900Z' fill='rgba(50,18,4,0.55)'/%3E%3Cpath d='M0,850 C220,790 440,840 680,760 C920,680 1140,735 1380,660 L1440,900 L0,900Z' fill='rgba(72,26,5,0.6)'/%3E%3C/svg%3E");
-      background-size: cover;
-      background-attachment: scroll;
-      background-position: bottom;
+      opacity: 0.72;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C240,42 500,5 740,38 C960,68 1200,8 1440,44 L1440,105 L0,105Z' fill='rgba(20,7,1,0.36)'/%3E%3Cpath d='M0,390 C200,352 430,386 660,332 C880,278 1080,314 1290,268 C1390,246 1428,256 1440,253 L1440,455 L0,455Z' fill='rgba(16,6,1,0.28)'/%3E%3Cpath d='M0,700 C200,640 400,680 600,610 C800,540 1000,590 1200,520 C1340,470 1400,490 1440,485 L1440,900 L0,900Z' fill='rgba(30,10,2,0.5)'/%3E%3Cpath d='M0,780 C180,720 380,765 600,690 C820,615 1020,665 1240,595 C1360,555 1420,568 1440,565 L1440,900 L0,900Z' fill='rgba(50,18,4,0.55)'/%3E%3Cpath d='M0,850 C220,790 440,840 680,760 C920,680 1140,735 1380,660 L1440,900 L0,900Z' fill='rgba(72,26,5,0.6)'/%3E%3C/svg%3E");
+      background-size: 100% 100%;
     }
     main { position: relative; z-index: 1; }
 
@@ -568,7 +570,7 @@
     /* ===================================
        SECTION 2 — ABOUT
        =================================== */
-    #about { background: linear-gradient(180deg, rgba(8,13,24,0.90) 0%, rgba(12,19,34,0.92) 100%); }
+    #about { background: linear-gradient(180deg, rgba(8,13,24,0.82) 0%, rgba(12,19,34,0.84) 100%); }
 
     .about-layout {
       display: grid;
@@ -616,7 +618,7 @@
     /* ===================================
        SECTION 3 — SKILLS
        =================================== */
-    #skills { background: rgba(8,13,24,0.90); }
+    #skills { background: rgba(8,13,24,0.82); }
 
     .skills-grid {
       display: grid;
@@ -647,7 +649,7 @@
     /* ===================================
        SECTION 4 — EXPERIENCE
        =================================== */
-    #experience { background: linear-gradient(180deg, rgba(12,19,34,0.92) 0%, rgba(8,13,24,0.90) 100%); }
+    #experience { background: linear-gradient(180deg, rgba(12,19,34,0.84) 0%, rgba(8,13,24,0.82) 100%); }
 
     .timeline {
       max-width: 880px;
@@ -697,7 +699,7 @@
     /* ===================================
        SECTION 4b — EDUCATION
        =================================== */
-    #education { background: linear-gradient(180deg, rgba(8,13,24,0.90) 0%, rgba(12,19,34,0.92) 100%); }
+    #education { background: linear-gradient(180deg, rgba(8,13,24,0.82) 0%, rgba(12,19,34,0.84) 100%); }
 
     .edu-grid {
       max-width: 960px;
@@ -841,7 +843,7 @@
     /* ===================================
        SECTION 4c — DOMAINS
        =================================== */
-    #domains { background: linear-gradient(180deg, rgba(12,19,34,0.92) 0%, rgba(8,13,24,0.90) 100%); }
+    #domains { background: linear-gradient(180deg, rgba(12,19,34,0.84) 0%, rgba(8,13,24,0.82) 100%); }
 
     .domains-intro {
       max-width: 820px;
@@ -951,7 +953,7 @@
     /* ===================================
        SECTION 5 — PROJECTS
        =================================== */
-    #projects { background: rgba(8,13,24,0.90); }
+    #projects { background: rgba(8,13,24,0.82); }
 
     .projects-grid {
       display: grid;
@@ -1009,7 +1011,7 @@
     /* ===================================
        SECTION 6 — CASE STUDIES
        =================================== */
-    #case-studies { background: linear-gradient(180deg, rgba(8,13,24,0.90) 0%, rgba(12,19,34,0.92) 100%); }
+    #case-studies { background: linear-gradient(180deg, rgba(8,13,24,0.82) 0%, rgba(12,19,34,0.84) 100%); }
 
     .cases-grid {
       display: grid;
@@ -1062,7 +1064,7 @@
     #metrics {
       min-height: unset;
       padding: 90px 6%;
-      background: rgba(12,19,34,0.92);
+      background: rgba(12,19,34,0.84);
     }
     .metrics-rail {
       display: grid;
@@ -1102,7 +1104,7 @@
     /* ===================================
        SECTION 8 — LEADERSHIP
        =================================== */
-    #leadership { background: rgba(8,13,24,0.90); }
+    #leadership { background: rgba(8,13,24,0.82); }
 
     .leadership-grid {
       display: grid;
@@ -1190,7 +1192,7 @@
 
     /* ===== FOOTER / CONTACT ===== */
     footer {
-      background: rgba(12,19,34,0.94);
+      background: rgba(12,19,34,0.86);
       border-top: 1px solid var(--border-subtle);
       text-align: center;
       padding: 80px 6% 50px;
@@ -1222,7 +1224,7 @@
     #metrics {
       min-height: unset;
       padding: 90px 6%;
-      background: rgba(12,19,34,0.92);
+      background: rgba(12,19,34,0.84);
       position: relative;
     }
     #metrics::before {
@@ -1688,6 +1690,34 @@
       .pa-domain { display: none; }
     }
 
+    /* ===== EXPAND / COLLAPSE TOGGLES ===== */
+    .expand-hidden { display: none; }
+    .show-more-btn {
+      display: flex; align-items: center; gap: 8px;
+      margin: 24px auto 0;
+      padding: 10px 26px;
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.28);
+      border-radius: 30px;
+      color: var(--orange);
+      font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.25s;
+      letter-spacing: 0.03em;
+    }
+    .show-more-btn:hover {
+      background: rgba(249,115,22,0.15);
+      box-shadow: 0 0 20px rgba(249,115,22,0.2);
+    }
+    .show-more-btn i { transition: transform 0.3s; }
+    .show-more-btn.open i { transform: rotate(180deg); }
+
+    /* About read-more */
+    .about-extra {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+    .about-extra.open { max-height: 600px; }
+
     /* ===== MORE PROJECTS CTA ===== */
     .more-projects-cta {
       max-width: 1080px;
@@ -1992,18 +2022,23 @@
           orchestrating end-to-end validation across functional, performance, and security-aware
           testing while remaining deeply embedded in <strong>API, data, and system-level verification</strong>.
         </p>
-        <p>
-          Drove <strong>zero-critical-defect releases</strong> by pioneering AI-assisted testing,
-          optimising regression coverage, and accelerating root-cause resolution across sophisticated
-          software-hardware implementations. Specialised in designing custom constraint-driven
-          frameworks — rules, invariants, feasibility, cost, and impact checks — for
-          <strong>non-deterministic AI output validation</strong>.
-        </p>
-        <p>
-          Recognised for taking full ownership of quality outcomes, <strong>mentoring senior QA
-          engineers</strong>, and influencing cross-functional teams to adopt shift-left practices
-          that prevent defects before they reach development.
-        </p>
+        <div class="about-extra" id="aboutExtra">
+          <p>
+            Drove <strong>zero-critical-defect releases</strong> by pioneering AI-assisted testing,
+            optimising regression coverage, and accelerating root-cause resolution across sophisticated
+            software-hardware implementations. Specialised in designing custom constraint-driven
+            frameworks — rules, invariants, feasibility, cost, and impact checks — for
+            <strong>non-deterministic AI output validation</strong>.
+          </p>
+          <p>
+            Recognised for taking full ownership of quality outcomes, <strong>mentoring senior QA
+            engineers</strong>, and influencing cross-functional teams to adopt shift-left practices
+            that prevent defects before they reach development.
+          </p>
+        </div>
+        <button class="show-more-btn" id="aboutToggle" onclick="toggleAbout()">
+          <span>Read more</span><i class="fas fa-chevron-down"></i>
+        </button>
         <div class="tag-row">
           <span class="tag tag-orange">ISTQB CTAL-TM</span>
           <span class="tag tag-orange">Lean Six Sigma Green Belt</span>
@@ -2074,7 +2109,7 @@
         </div>
       </div>
 
-      <div class="card skill-card reveal">
+      <div class="card skill-card reveal expand-hidden">
         <div class="skill-card-icon"><i class="fas fa-bug"></i></div>
         <h4>Defect Lifecycle Governance</h4>
         <div class="tag-wrap">
@@ -2084,7 +2119,7 @@
         </div>
       </div>
 
-      <div class="card skill-card reveal">
+      <div class="card skill-card reveal expand-hidden">
         <div class="skill-card-icon"><i class="fas fa-infinity"></i></div>
         <h4>Delivery &amp; Agile QA</h4>
         <div class="tag-wrap">
@@ -2094,7 +2129,7 @@
         </div>
       </div>
 
-      <div class="card skill-card reveal">
+      <div class="card skill-card reveal expand-hidden">
         <div class="skill-card-icon"><i class="fas fa-robot"></i></div>
         <h4>Test Automation</h4>
         <div class="tag-wrap">
@@ -2104,7 +2139,7 @@
         </div>
       </div>
 
-      <div class="card skill-card reveal">
+      <div class="card skill-card reveal expand-hidden">
         <div class="skill-card-icon"><i class="fas fa-users"></i></div>
         <h4>Leadership &amp; Communication</h4>
         <div class="tag-wrap">
@@ -2115,6 +2150,9 @@
       </div>
 
     </div>
+    <button class="show-more-btn" id="skillsToggle" onclick="toggleSkills()">
+      <span>Show 4 more skills</span><i class="fas fa-chevron-down"></i>
+    </button>
   </section>
 
   <!-- ======================================
@@ -2828,7 +2866,7 @@
         <div class="case-impact"><p><i class="fas fa-chart-line" style="margin-right:7px;"></i>Average defect age cut by 35%. Go/no-go decisions became data-driven. Release pipeline unblocked and on-time delivery sustained across 90+ sprints.</p></div>
       </div>
 
-      <div class="card case-card reveal">
+      <div class="card case-card reveal expand-hidden">
         <div class="case-num">04</div>
         <div class="case-title">Flaky AI Test Results Masking Real Solver Regressions</div>
         <div class="case-step">
@@ -2846,7 +2884,7 @@
         <div class="case-impact"><p><i class="fas fa-check-double" style="margin-right:7px;"></i>Flake rate reduced from 23% to under 2%. Genuine regressions now reliably surfaced. Team confidence in the test suite fully restored.</p></div>
       </div>
 
-      <div class="card case-card reveal">
+      <div class="card case-card reveal expand-hidden">
         <div class="case-num">05</div>
         <div class="case-title">Cross-Tenant Data Leakage via Unscoped API Endpoints in Multi-Tenant ERP</div>
         <div class="case-step">
@@ -2864,7 +2902,7 @@
         <div class="case-impact"><p><i class="fas fa-shield-alt" style="margin-right:7px;"></i>Zero cross-tenant data exposure in production. Security contract suite adopted as a standard gate — catching similar risks across 3 subsequent feature releases before they reached staging.</p></div>
       </div>
 
-      <div class="card case-card reveal">
+      <div class="card case-card reveal expand-hidden">
         <div class="case-num">06</div>
         <div class="case-title">Regression Coverage Collapse from Uncontrolled Test Suite Sprawl</div>
         <div class="case-step">
@@ -2883,6 +2921,9 @@
       </div>
 
     </div>
+    <button class="show-more-btn" id="casesToggle" onclick="toggleCases()">
+      <span>Show 3 more case studies</span><i class="fas fa-chevron-down"></i>
+    </button>
   </section>
 
   <!-- ======================================
@@ -3367,6 +3408,31 @@ function toggleDomain(header) {
     item.classList.add('open');
     body.style.maxHeight = body.scrollHeight + 'px';
   }
+}
+
+/* ===== EXPAND / COLLAPSE TOGGLES ===== */
+function toggleAbout() {
+  const el = document.getElementById('aboutExtra');
+  const btn = document.getElementById('aboutToggle');
+  const open = el.classList.toggle('open');
+  btn.querySelector('span').textContent = open ? 'Read less' : 'Read more';
+  btn.classList.toggle('open', open);
+}
+
+function toggleSkills() {
+  const btn = document.getElementById('skillsToggle');
+  const hidden = document.querySelectorAll('#skills .expand-hidden');
+  const open = btn.classList.toggle('open');
+  hidden.forEach(el => el.style.display = open ? '' : 'none');
+  btn.querySelector('span').textContent = open ? 'Show less' : 'Show 4 more skills';
+}
+
+function toggleCases() {
+  const btn = document.getElementById('casesToggle');
+  const hidden = document.querySelectorAll('#case-studies .expand-hidden');
+  const open = btn.classList.toggle('open');
+  hidden.forEach(el => el.style.display = open ? '' : 'none');
+  btn.querySelector('span').textContent = open ? 'Show less' : 'Show 3 more case studies';
 }
 
 /* ===== ACTIVE NAV ON SCROLL ===== */
